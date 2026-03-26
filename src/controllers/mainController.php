@@ -1,49 +1,37 @@
 <?php
+declare(strict_types=1);
 
-include "src/datatype/stateEnum.php";
 include "src/dbconnection.php";
 include "src/controllers/routeController.php";
 include "src/controllers/kachelController.php";
+include "src/controllers/detailController.php";
 
 class MainController
 {
     private $db;
     private $conn;
-    private State $state;
-    // private RouteController $routeController;
+    private RouteController $routeController;
+    private KachelController $kachelController;
+    private DetailController $detailController;
 
     public function __construct()
     {
-        $this->state = State::UserKacheln;
-
         $this->db = new DBConnection();
         $this->conn = $this->db->connect();
         $altconn = $this->conn;
 
-        $this->kachelController = new KachelController($this->conn);
         $this->routeController = new RouteController();
+        $this->kachelController = new KachelController($this->conn);
+        $this->detailController = new DetailController($this->conn);
 
         $this->routeController->addRoute("/", function () {
-            echo "home";
+            $this->kachelController->render();
         });
-        $this->routeController->addRoute("/about", function () {
-            echo "about";
-        });
-        $this->routeController->addRoute("/user", function () {
-            echo "user";
+        $this->routeController->addRoute("/detail", function () {
+            $this->detailController->render();
         });
 
         $this->routeController->receive();
     }
-
-    // public function render()
-    // {
-    //     switch ($this->state) {
-    //         case State::UserKacheln:
-    //             $this->kachelController->update();
-    //             $this->kachelController->render();
-    //             break;
-    //     }
-    // }
 }
 ?>
