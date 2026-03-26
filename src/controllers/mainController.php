@@ -21,21 +21,29 @@ class MainController
         $altconn = $this->conn;
 
         $this->kachelController = new KachelController($this->conn);
-        // $this->routeController = new RouteController();
-        // $this->routeController->addRoute("/", function () {
-        //     require "src/controllers/kachelController.php";
-        //     new KachelController($this->conn)->render();
-        // });
+        $this->routeController = new RouteController();
+
+        $this->routeController->addRoute("/", function () {
+            echo "home";
+        });
+        $this->routeController->addRoute("/about", function () {
+            echo "about";
+        });
+        $this->routeController->addRoute("/user", function () {
+            echo "user";
+        });
+
+        $this->routeController->receive();
     }
 
-    public function render()
-    {
-        switch ($this->state) {
-            case State::UserKacheln:
-                $this->kachelController->update();
-                $this->kachelController->render();
-                break;
-        }
-    }
+    // public function render()
+    // {
+    //     switch ($this->state) {
+    //         case State::UserKacheln:
+    //             $this->kachelController->update();
+    //             $this->kachelController->render();
+    //             break;
+    //     }
+    // }
 }
 ?>
