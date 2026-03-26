@@ -22,7 +22,7 @@ class DBConnection
         }
     }
 
-    public function getConnection()
+    public function connect()
     {
         return $this->conn;
     }

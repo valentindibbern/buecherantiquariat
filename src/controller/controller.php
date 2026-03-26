@@ -2,8 +2,8 @@
 
 include "src/datatype/stateEnum.php";
 include "src/dbconnection.php";
-include "src/model/readBooks.php";
-include "src/views/userBookList.php";
+include "src/models/bookModel.php";
+include "src/views/userKachelView.php";
 
 class Controller
 {
@@ -32,6 +32,32 @@ class Controller
         return $this->state;
     }
 
-    public function render() {}
+    public function update()
+    {
+        $books = BookModel::searchBooks(
+            $this->conn,
+            1,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            18,
+        );
+        $this->render($books);
+    }
+
+    public function render($info)
+    {
+        switch ($this->state) {
+            case State::UserKacheln:
+                UserKachelView::render($info);
+                break;
+        }
+    }
 }
 ?>

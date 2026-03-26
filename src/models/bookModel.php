@@ -2,8 +2,6 @@
 
 class BookModel
 {
-    private $pageSize = 18;
-
     public static function searchBooks(
         $conn,
         $page,
@@ -16,8 +14,9 @@ class BookModel
         $kaufer,
         $verfasser,
         $zustand,
+        $pageSize,
     ) {
-        $offset = ($page - 1) * self::$pageSize;
+        $offset = ($page - 1) * $pageSize;
 
         $strsearchQuery = "%$strquery%";
         $idsearchQuery = "%$id%";
