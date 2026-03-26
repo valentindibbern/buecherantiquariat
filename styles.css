@@ -1,0 +1,19 @@
+.kachel {
+    background-color: green;
+    margin: 100px;
+}
+
+nav {
+    background-color: red;
+}
+
+p {
+    color: purple;
+    size: 30;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}

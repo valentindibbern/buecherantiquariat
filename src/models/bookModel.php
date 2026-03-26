@@ -29,7 +29,7 @@ class BookModel
         $zustandsearchQuery = "%$zustand%";
 
         $sql = "
-        SELECT * FROM books WHERE
+        SELECT * FROM buecher WHERE
         id LIKE ? OR
         katalog LIKE ? OR
         nummer LIKE ? OR
@@ -44,7 +44,7 @@ class BookModel
 
         $stmt = $conn->prepare($sql);
 
-        $stmt->bindParam(
+        $stmt->bind_param(
             "iiisiiisisii",
             $idsearchQuery,
             $katalogsearchQuery,

@@ -4,14 +4,14 @@ include "src/uicomponents/kachel.php";
 include "src/uicomponents/header.php";
 include "src/uicomponents/footer.php";
 
-class UserBookList
+class UserKachelView
 {
-    private $cols = 6;
-    private $rows = 3;
-
     public static function render($carr)
     {
-        Header::render();
+        $cols = 6;
+        $rows = 3;
+
+        UIHeader::render("Home");
 
         echo '<div class="grid-container">';
         $count = 0;
@@ -31,7 +31,7 @@ class UserBookList
         }
         echo "</div>";
 
-        Footer::render();
+        UIFooter::render();
     }
 }
 
