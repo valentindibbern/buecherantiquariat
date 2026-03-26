@@ -3,8 +3,8 @@ class DBConnection
 {
     private $host = "127.0.0.1";
     private $dbname = "books";
-    private $username = "rundb";
-    private $password = "runpass";
+    private $username = "root";
+    private $password = "";
     private $port = 3307;
     private $conn;
 

@@ -1,3 +1,8 @@
-<?php include "src/header.php"; ?>
+<?php
 
-<?php include "src/footer.php"; ?>
+include "src/controllers/controllers.php";
+
+$controller = new Controller();
+$controller->connect();
+
+?>
