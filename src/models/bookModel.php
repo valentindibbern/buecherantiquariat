@@ -1,5 +1,4 @@
 <?php
-
 class BookModel
 {
     public static function searchBooks(

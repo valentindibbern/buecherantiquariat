@@ -1,9 +1,6 @@
 <?php
 declare(strict_types=1);
 
-include "src/uicomponents/footer.php";
-include "src/uicomponents/header.php";
-
 class DetailController
 {
     private $conn;
@@ -17,5 +14,8 @@ class DetailController
 
     public function getInfo() {}
 
-    public function render() {}
+    public function render()
+    {
+        echo "hallo";
+    }
 }

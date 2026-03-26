@@ -1,11 +1,6 @@
 <?php
 declare(strict_types=1);
 
-include "src/dbconnection.php";
-include "src/controllers/routeController.php";
-include "src/controllers/kachelController.php";
-include "src/controllers/detailController.php";
-
 class MainController
 {
     private $db;

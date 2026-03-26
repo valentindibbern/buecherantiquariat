@@ -1,5 +1,5 @@
 <?php
-class UIKachel
+class KachelComponent
 {
     public static function render($id, $img, $name, $autor, $zustand)
     {

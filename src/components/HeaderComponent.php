@@ -1,5 +1,5 @@
 <?php
-class UIHeader
+class HeaderComponent
 {
     public static function render($title)
     {

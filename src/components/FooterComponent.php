@@ -1,5 +1,5 @@
 <?php
-class UIFooter
+class FooterComponent
 {
     public static function render()
     {
