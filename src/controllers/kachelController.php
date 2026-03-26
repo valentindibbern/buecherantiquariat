@@ -11,13 +11,12 @@ class KachelController
     public function __construct($conn)
     {
         $this->conn = $conn;
+        $this->info = [];
     }
-
-    public function render() {}
 
     public function update()
     {
-        $info = BookModel::searchBooks(
+        $this->info = BookModel::searchBooks(
             $this->conn,
             1,
             "",
@@ -31,5 +30,25 @@ class KachelController
             "",
             18,
         );
+    }
+
+    public function render()
+    {
+        $this->update();
+        echo <<<EOT
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <link rel="stylesheet" href="styles.css">
+                    <title>Bücher Antiquariat</title>
+                </head>
+                <body>
+        EOT;
+        UserKachelView::render($this->info);
+        echo <<<EOT
+                </body>
+            </html>
+        EOT;
     }
 }

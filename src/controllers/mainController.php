@@ -2,15 +2,15 @@
 
 include "src/datatype/stateEnum.php";
 include "src/dbconnection.php";
-include "src/controller/routeController.php";
-include "src/controller/kachelController.php";
+include "src/controllers/routeController.php";
+include "src/controllers/kachelController.php";
 
 class MainController
 {
     private $db;
     private $conn;
     private State $state;
-    private RouteController $routeController;
+    // private RouteController $routeController;
 
     public function __construct()
     {
@@ -18,35 +18,22 @@ class MainController
 
         $this->db = new DBConnection();
         $this->conn = $this->db->connect();
+        $altconn = $this->conn;
 
         $this->kachelController = new KachelController($this->conn);
-        $this->routeController = new RouteController();
-        $this->routeController->addRoute("/", "");
+        // $this->routeController = new RouteController();
+        // $this->routeController->addRoute("/", function () {
+        //     require "src/controllers/kachelController.php";
+        //     new KachelController($this->conn)->render();
+        // });
     }
 
-    public function update()
-    {
-        $this->$info = BookModel::searchBooks(
-            $this->conn,
-            1,
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            18,
-        );
-    }
-
-    public function render($info)
+    public function render()
     {
         switch ($this->state) {
             case State::UserKacheln:
-                UserKachelView::render($info);
+                $this->kachelController->update();
+                $this->kachelController->render();
                 break;
         }
     }
