@@ -1,19 +1,57 @@
+body {
+    background-color: gray;
+}
+
+nav ul {
+    display: flex;
+    gap: 10;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 10;
+}
+
+nav ul li {
+    padding: 10px;
+    background-color: darkgray;
+}
+
+nav ul li.nav-item-right {
+    margin-left: auto;
+}
+
+nav ul li.nav-item-left {
+    margin-right: auto;
+}
+
+.navbar-brand {
+    text-align: center;
+}
+
 .kachel {
-    background-color: green;
-    margin: 100px;
+    background-color: darkgray;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    width: 90%;
+    height: 90%;
 }
 
-nav {
-    background-color: red;
+.kachel-img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
 }
 
-p {
-    color: purple;
-    size: 30;
+.kachel-content {
+    padding: 10px;
+    text-align: center;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     gap: 10px;
 }

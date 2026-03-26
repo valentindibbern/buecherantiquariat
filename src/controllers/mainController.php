@@ -2,39 +2,31 @@
 
 include "src/datatype/stateEnum.php";
 include "src/dbconnection.php";
-include "src/models/bookModel.php";
-include "src/views/userKachelView.php";
+include "src/controller/routeController.php";
+include "src/controller/kachelController.php";
 
-class Controller
+class MainController
 {
     private $db;
     private $conn;
     private State $state;
+    private RouteController $routeController;
 
     public function __construct()
     {
-        $this->db = new DBConnection();
         $this->state = State::UserKacheln;
-    }
 
-    public function connect()
-    {
+        $this->db = new DBConnection();
         $this->conn = $this->db->connect();
-    }
 
-    public function setState(State $state)
-    {
-        $this->state = $state;
-    }
-
-    public function getState(): State
-    {
-        return $this->state;
+        $this->kachelController = new KachelController($this->conn);
+        $this->routeController = new RouteController();
+        $this->routeController->addRoute("/", "");
     }
 
     public function update()
     {
-        $books = BookModel::searchBooks(
+        $this->$info = BookModel::searchBooks(
             $this->conn,
             1,
             "",
@@ -48,7 +40,6 @@ class Controller
             "",
             18,
         );
-        $this->render($books);
     }
 
     public function render($info)

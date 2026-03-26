@@ -17,6 +17,7 @@ class UserKachelView
         $count = 0;
         foreach ($carr as $item) {
             UIKachel::render(
+                $item["id"],
                 $item["foto"],
                 $item["Title"],
                 $item["autor"],
@@ -25,8 +26,6 @@ class UserKachelView
             $count++;
             if ($count == $cols * $rows) {
                 break;
-            } elseif ($count % $cols == 0) {
-                echo "<br>";
             }
         }
         echo "</div>";
