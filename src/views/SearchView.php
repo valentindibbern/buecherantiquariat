@@ -1,8 +1,8 @@
 <?php
 
-class KachelView
+class SearchView
 {
-    public static function render($contentArray, $currentPage)
+    public static function render($contentArray): void
     {
         echo <<<EOT
             <!DOCTYPE html>
@@ -15,7 +15,7 @@ class KachelView
                 <body>
         EOT;
 
-        HeaderComponent::render("Home");
+        HeaderComponent::render("Search");
 
         echo '<div class="grid-container">';
         foreach ($contentArray as $item) {
@@ -28,8 +28,6 @@ class KachelView
             );
         }
         echo "</div>";
-
-        PaginatorComponent::render($currentPage, $_COOKIE["totalPages"]);
 
         FooterComponent::render();
 

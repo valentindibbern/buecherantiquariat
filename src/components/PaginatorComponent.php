@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 class PaginatorComponent
 {
-    public static function render(int $currentPage)
+    public static function render(int $currentPage, int $totalPages)
     {
         $previousPage = $currentPage - 1;
         $nextPage = $currentPage + 1;
-        $totalPages = $_COOKIE["totalPages"];
 
         switch ($currentPage) {
             case 1:

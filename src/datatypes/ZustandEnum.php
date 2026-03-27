@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 enum ZustandEnum: string
 {
-    case Gut = "G";
-    case Mittel = "M";
-    case Schlecht = "S";
+    case GUT = "G";
+    case MITTEL = "M";
+    case SCHLECHT = "S";
 
     public function label(): string
     {
         return match ($this) {
-            self::Gut => "Gut",
-            self::Mittel => "Mittel",
-            self::Schlecht => "Schlecht",
+            self::GUT => "GUT",
+            self::MITTEL => "Mittel",
+            self::SCHLECHT => "Schlecht",
         };
     }
 }

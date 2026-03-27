@@ -11,14 +11,14 @@ class SearchController
         $this->info = [];
     }
 
-    public function update(int $querry): void
+    public function update(string $querry): void
     {
         $this->info = BookModel::searchBooks($this->conn, $querry);
     }
 
-    public function render(int $querry): void
+    public function render(string $querry): void
     {
         $this->update($querry);
-        KachelView::render($this->info);
+        SearchView::render($this->info);
     }
 }
