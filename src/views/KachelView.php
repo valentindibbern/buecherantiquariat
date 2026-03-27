@@ -26,17 +26,17 @@ class KachelView
                 $item["autor"],
                 $item["zustand"],
             );
-            echo "</div>";
-
-            PaginatorComponent::render($currentPage);
-
-            FooterComponent::render();
-
-            echo <<<EOT
-                    </body>
-                </html>
-            EOT;
         }
+        echo "</div>";
+
+        PaginatorComponent::render($currentPage);
+
+        FooterComponent::render();
+
+        echo <<<EOT
+                </body>
+            </html>
+        EOT;
     }
 }
 ?>

@@ -13,7 +13,8 @@ class BookModel
 
     public static function getBooksByPage($conn, $page): array
     {
-        $offset = ($page - 1) * 18;
+        $pageSize = 18;
+        $offset = ($page - 1) * $pageSize;
         $sql = "SELECT * FROM buecher LIMIT ? OFFSET ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $pageSize, $offset);

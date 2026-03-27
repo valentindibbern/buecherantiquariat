@@ -20,13 +20,13 @@ class MainController
         $this->detailController = new DetailController($this->conn);
 
         $this->routeController->addRoute("/", function () {
-            $this->kachelController->render();
+            $this->kachelController->render((int) ($_GET["page"] ?? 1));
         });
         $this->routeController->addRoute("/home", function () {
-            $this->kachelController->render();
+            $this->kachelController->render((int) ($_GET["page"] ?? 1));
         });
         $this->routeController->addRoute("/detail", function () {
-            $this->detailController->render((int) $_GET["id"]);
+            $this->detailController->render((int) ($_GET["id"] ?? 1));
         });
 
         setcookie("totalPages", (string) BookModel::getTotalPages($this->conn));

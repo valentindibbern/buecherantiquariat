@@ -4,24 +4,21 @@ class KachelController
 {
     private $conn;
     private $info;
-    private $page;
-    private $total_pages;
 
-    public function __construct($conn, ?int $page = 1)
+    public function __construct($conn)
     {
         $this->conn = $conn;
         $this->info = [];
-        $this->page = $page;
     }
 
-    public function update()
+    public function update(int $page): void
     {
-        $this->info = BookModel::getBooksByPage($this->conn, $this->page);
+        $this->info = BookModel::getBooksByPage($this->conn, $page);
     }
 
-    public function render()
+    public function render(int $page): void
     {
-        $this->update();
-        KachelView::render($this->info, $this->page);
+        $this->update($page);
+        KachelView::render($this->info, $page);
     }
 }
