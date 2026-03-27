@@ -55,3 +55,7 @@ nav ul li.nav-item-left {
     grid-template-rows: repeat(3, 1fr);
     gap: 10px;
 }
+
+.detail-container {
+    background-color: gray;
+}

@@ -13,25 +13,12 @@ class KachelController
 
     public function update()
     {
-        $this->info = BookModel::searchBooks(
-            $this->conn,
-            1,
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            18,
-        );
+        $this->info = BookModel::getBooksByPage($this->conn, $_GET["page"]);
     }
 
     public function render()
     {
         $this->update();
-        KachelView::render($this->info);
+        KachelView::render($this->info, $_GET["page"], $_GET["total_pages"]);
     }
 }

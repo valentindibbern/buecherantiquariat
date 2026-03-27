@@ -24,7 +24,8 @@ class RouteController
         if (array_key_exists($path, $this->routes)) {
             call_user_func($this->routes[$path]);
         } else {
-            echo "Page not found";
+            echo "Page not found.<br>";
+            echo $path;
         }
     }
 }

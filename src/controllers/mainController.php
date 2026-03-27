@@ -22,8 +22,11 @@ class MainController
         $this->routeController->addRoute("/", function () {
             $this->kachelController->render();
         });
+        $this->routeController->addRoute("/home", function () {
+            $this->kachelController->render();
+        });
         $this->routeController->addRoute("/detail", function () {
-            $this->detailController->render();
+            $this->detailController->render((int) $_GET["id"]);
         });
 
         $this->routeController->receive();

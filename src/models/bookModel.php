@@ -1,6 +1,28 @@
 <?php
+declare(strict_types=1);
+
 class BookModel
 {
+    public static function getBooksByPage($conn, $page) {
+        $offset = ($page - 1) * $pageSize;
+        $sql = "SELECT * FROM buecher LIMIT ? OFFSET ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ii", $pageSize, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public static function getBookById($conn, $id)
+    {
+        $sql = "SELECT * FROM buecher WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
     public static function searchBooks(
         $conn,
         $page,
@@ -13,10 +35,7 @@ class BookModel
         $kaufer,
         $verfasser,
         $zustand,
-        $pageSize,
     ) {
-        $offset = ($page - 1) * $pageSize;
-
         $strsearchQuery = "%$strquery%";
         $idsearchQuery = "%$id%";
         $katalogsearchQuery = "%$katalog%";
@@ -38,13 +57,12 @@ class BookModel
         kaufer LIKE ? OR
         autor LIKE ? OR
         verfasser LIKE ? OR
-        zustand LIKE ?
-        LIMIT ? OFFSET ?";
+        zustand LIKE ?;
 
         $stmt = $conn->prepare($sql);
 
         $stmt->bind_param(
-            "iiisiiisisii",
+            "iiisiiisis",
             $idsearchQuery,
             $katalogsearchQuery,
             $nummersearchQuery,
@@ -55,8 +73,6 @@ class BookModel
             $kaufersearchQuery,
             $verfassersearchQuery,
             $zustandsearchQuery,
-            $pageSize,
-            $offset,
         );
         $stmt->execute();
 

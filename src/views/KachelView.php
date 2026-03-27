@@ -2,7 +2,7 @@
 
 class KachelView
 {
-    public static function render($carr)
+    public static function render($contentArray, $currentPage, $totalPages)
     {
         $cols = 6;
         $rows = 3;
@@ -22,7 +22,7 @@ class KachelView
 
         echo '<div class="grid-container">';
         $count = 0;
-        foreach ($carr as $item) {
+        foreach ($contentArray as $item) {
             KachelComponent::render(
                 $item["id"],
                 $item["foto"],
@@ -35,6 +35,9 @@ class KachelView
                 break;
             }
         }
+        echo "</div>";
+        echo "<div class='page-buttons'>";
+        echo "";
         echo "</div>";
 
         FooterComponent::render();
