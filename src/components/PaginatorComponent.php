@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 class PaginatorComponent
 {
-    public static function render(int $currentPage, int $totalPages)
+    public static function render(int $currentPage)
     {
+        $totalPages = $_COOKIE['totalPages'];
+
         echo <<<EOT
         <div class="paginator">
             <ul>

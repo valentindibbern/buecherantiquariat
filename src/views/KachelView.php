@@ -2,11 +2,8 @@
 
 class KachelView
 {
-    public static function render($contentArray, $currentPage, $totalPages)
+    public static function render($contentArray, $currentPage)
     {
-        $cols = 6;
-        $rows = 3;
-
         echo <<<EOT
             <!DOCTYPE html>
             <html>
@@ -21,7 +18,6 @@ class KachelView
         HeaderComponent::render("Home");
 
         echo '<div class="grid-container">';
-        $count = 0;
         foreach ($contentArray as $item) {
             KachelComponent::render(
                 $item["id"],
@@ -30,23 +26,17 @@ class KachelView
                 $item["autor"],
                 $item["zustand"],
             );
-            $count++;
-            if ($count == $cols * $rows) {
-                break;
-            }
+            echo "</div>";
+
+            PaginatorComponent::render($currentPage);
+
+            FooterComponent::render();
+
+            echo <<<EOT
+                    </body>
+                </html>
+            EOT;
         }
-        echo "</div>";
-        echo "<div class='page-buttons'>";
-        echo "";
-        echo "</div>";
-
-        FooterComponent::render();
-
-        echo <<<EOT
-                </body>
-            </html>
-        EOT;
     }
 }
-
 ?>

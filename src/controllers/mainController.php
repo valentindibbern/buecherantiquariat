@@ -29,6 +29,8 @@ class MainController
             $this->detailController->render((int) $_GET["id"]);
         });
 
+        setcookie("totalPages", (string) BookModel::getTotalPages($this->conn));
+
         $this->routeController->receive();
     }
 }

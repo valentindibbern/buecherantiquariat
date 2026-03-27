@@ -3,8 +3,17 @@ declare(strict_types=1);
 
 class BookModel
 {
-    public static function getBooksByPage($conn, $page) {
-        $offset = ($page - 1) * $pageSize;
+    public static function getTotalPages($conn): int
+    {
+        $sql = "SELECT COUNT(*) FROM buecher";
+        $result = $conn->query($sql);
+        $row = $result->fetch_row();
+        return (int) $row[0];
+    }
+
+    public static function getBooksByPage($conn, $page): array
+    {
+        $offset = ($page - 1) * 18;
         $sql = "SELECT * FROM buecher LIMIT ? OFFSET ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $pageSize, $offset);
@@ -13,7 +22,7 @@ class BookModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public static function getBookById($conn, $id)
+    public static function getBookById($conn, $id): array
     {
         $sql = "SELECT * FROM buecher WHERE id = ?";
         $stmt = $conn->prepare($sql);
@@ -35,7 +44,7 @@ class BookModel
         $kaufer,
         $verfasser,
         $zustand,
-    ) {
+    ): array {
         $strsearchQuery = "%$strquery%";
         $idsearchQuery = "%$id%";
         $katalogsearchQuery = "%$katalog%";
@@ -57,7 +66,7 @@ class BookModel
         kaufer LIKE ? OR
         autor LIKE ? OR
         verfasser LIKE ? OR
-        zustand LIKE ?;
+        zustand LIKE ?";
 
         $stmt = $conn->prepare($sql);
 
