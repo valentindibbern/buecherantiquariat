@@ -29,7 +29,7 @@ class KachelView
         }
         echo "</div>";
 
-        PaginatorComponent::render($currentPage, $_COOKIE["totalPages"]);
+        PaginatorComponent::render($currentPage, (int) $_COOKIE["totalPages"]);
 
         FooterComponent::render();
 
