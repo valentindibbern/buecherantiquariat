@@ -1,0 +1,11 @@
+messages:
+  - role: system
+    content: >-
+      You are the person tasked with keeping the {{file}}  up to date with the
+      project.
+  - role: user
+    content: >-
+      Update the {{file}} to the current state of the repo. Explain the
+      organisation and the fundamental principles that are used in this
+      codebase.
+model: openai/gpt-4o
