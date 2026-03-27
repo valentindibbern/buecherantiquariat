@@ -2,26 +2,20 @@ body {
     background-color: gray;
 }
 
-nav ul {
+.horizontal-list {
+    width: 100%;
     display: flex;
     gap: 10;
-    flex-wrap: wrap;
     list-style: none;
-    padding: 0;
-    margin: 10;
 }
 
-nav ul li {
+.centered-list {
+    justify-content: center;
+}
+
+.horizontal-list-element {
     padding: 10px;
     background-color: darkgray;
-}
-
-nav ul li.nav-item-right {
-    margin-left: auto;
-}
-
-nav ul li.nav-item-left {
-    margin-right: auto;
 }
 
 .navbar-brand {

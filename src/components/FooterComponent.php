@@ -4,11 +4,13 @@ class FooterComponent
     public static function render()
     {
         echo <<<EOT
-            <footer class="footer">
-                <span class="footer-text">Valentin Dibber</span>
-                <br>
-                <span class="footer-text">Bücher Antiquariat</span>
-            </footer>
+                    <footer class="footer">
+                        <span class="footer-text align-center">Valentin Dibber</span>
+                        <br>
+                        <span class="footer-text align-center">Bücher Antiquariat</span>
+                    </footer>
+                </body>
+            </html>
         EOT;
     }
 }
