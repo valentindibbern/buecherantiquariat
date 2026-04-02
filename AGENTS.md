@@ -22,6 +22,8 @@ Agents should preserve the existing lightweight structure and write changes that
 3. Preserve routing assumptions around `/buecherantiquariat` unless the task explicitly requires changing them.
 4. Prefer extending existing controllers, models, views, and components over creating a parallel architecture.
 5. Document meaningful architectural observations in `docs/` when the change affects project understanding.
+6. When a task is finished, or when a very large task reaches a clean and meaningful checkpoint, stage the relevant changes and create a commit with a specific, descriptive commit message.
+7. Before implementing, explaining, or committing work, critically review your reasoning and the planned change in detail; look for wrong assumptions, missed edge cases, and mismatches with the existing codebase.
 
 ## Repository Documentation
 
@@ -95,6 +97,7 @@ When editing, prefer this order:
 1. Extend an existing file if the responsibility already lives there.
 2. Add a small new file only if the concept clearly deserves its own place.
 3. Update docs if the change alters behavior, setup, or architecture.
+4. Once a coherent unit of work is complete, commit it before moving on.
 
 ## Safe Change Boundaries
 
@@ -117,7 +120,10 @@ Agents should ask before:
 
 Before finishing, check for:
 
+- whether your reasoning still holds after inspecting the actual code paths you changed
+- whether the implementation matches the intent you are about to explain
 - compatibility with the hardcoded local routing assumptions
 - compatibility with the current database structure
 - whether the change matches the surrounding file style
 - whether docs should be updated because the project behavior changed
+- whether the work is verified enough to justify a confident explanation and commit
