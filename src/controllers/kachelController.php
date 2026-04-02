@@ -11,14 +11,19 @@ class KachelController
         $this->info = [];
     }
 
-    public function update(int $page): void
+    public function update(int $page, string $sort, string $dir): void
     {
-        $this->info = BookModel::getBooksByPage($this->conn, $page);
+        $this->info = BookModel::getBooksByPage(
+            $this->conn,
+            $page,
+            $sort,
+            $dir,
+        );
     }
 
-    public function render(int $page): void
+    public function render(int $page, string $sort, string $dir): void
     {
-        $this->update($page);
-        KachelView::render($this->info, $page);
+        $this->update($page, $sort, $dir);
+        KachelView::render($this->info, $page, $sort, $dir);
     }
 }

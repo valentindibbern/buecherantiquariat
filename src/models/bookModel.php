@@ -11,11 +11,18 @@ class BookModel
         return (int) ceil($row[0] / 18);
     }
 
-    public static function getBooksByPage($conn, $page): array
+    public static function getBooksByPage($conn, $page, string $sort, string $dir): array
     {
+        $sortColumns = [
+            "title" => "Title",
+            "autor" => "autor",
+            "zustand" => "zustand",
+        ];
+        $sortColumn = $sortColumns[$sort] ?? "Title";
+        $direction = strtolower($dir) === "desc" ? "DESC" : "ASC";
         $pageSize = 18;
         $offset = ($page - 1) * 18;
-        $sql = "SELECT * FROM buecher LIMIT ? OFFSET ?";
+        $sql = "SELECT * FROM buecher ORDER BY {$sortColumn} {$direction} LIMIT ? OFFSET ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ii", $pageSize, $offset);
         $stmt->execute();
