@@ -22,6 +22,14 @@ body {
     text-align: center;
 }
 
+.sort-form {
+    margin-left: auto;
+}
+
+.sort-select {
+    min-width: 140px;
+}
+
 .kachel {
     background-color: darkgray;
     border: 1px solid #000;

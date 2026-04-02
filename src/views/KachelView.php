@@ -2,8 +2,10 @@
 
 class KachelView
 {
-    public static function render($contentArray, $currentPage)
+    public static function render($contentArray, $currentPage, string $sort, string $dir)
     {
+        $sortValue = $sort . "_" . $dir;
+
         echo <<<EOT
             <!DOCTYPE html>
             <html>
@@ -15,7 +17,7 @@ class KachelView
                 <body>
         EOT;
 
-        HeaderComponent::render("Home");
+        HeaderComponent::render("Home", $sortValue);
 
         echo '<div class="grid-container">';
         foreach ($contentArray as $item) {
@@ -29,7 +31,12 @@ class KachelView
         }
         echo "</div>";
 
-        PaginatorComponent::render($currentPage, (int) $_COOKIE["totalPages"]);
+        PaginatorComponent::render(
+            $currentPage,
+            (int) $_COOKIE["totalPages"],
+            $sort,
+            $dir,
+        );
 
         FooterComponent::render();
 
