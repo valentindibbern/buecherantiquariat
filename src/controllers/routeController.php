@@ -47,15 +47,13 @@ class RouteController
         $this->addRoute("/", function () {
             $this->kachelController->render(
                 (int) ($_GET["page"] ?? 1),
-                $sort,
-                $dir,
+                $_GET["sort"] ?? SortEnum::TA,
             );
         });
         $this->addRoute("/home", function () {
             $this->kachelController->render(
                 (int) ($_GET["page"] ?? 1),
-                $sort,
-                $dir,
+                $_GET["sort"] ?? SortEnum::TA,
             );
         });
         $this->addRoute("/detail", function () {

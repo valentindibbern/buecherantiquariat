@@ -2,28 +2,27 @@
 
 class KachelController
 {
-    private $conn;
+    private $connection;
     private $info;
 
-    public function __construct($conn)
+    public function __construct($connection)
     {
-        $this->conn = $conn;
+        $this->connection = $connection;
         $this->info = [];
     }
 
-    public function update(int $page, string $sort, string $dir): void
+    public function update(int $page, SortEnum $sort): void
     {
         $this->info = BookModel::getBooksByPage(
-            $this->conn,
+            $this->connection,
             $page,
             $sort,
-            $dir,
         );
     }
 
-    public function render(int $page, string $sort, string $dir): void
+    public function render(int $page, SortEnum $sort): void
     {
-        $this->update($page, $sort, $dir);
-        KachelView::render($this->info, $page, $sort, $dir);
+        $this->update($page, $sort);
+        KachelView::render($this->info, $page, $sort);
     }
 }

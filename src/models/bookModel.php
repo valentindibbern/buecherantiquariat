@@ -19,16 +19,10 @@ class BookModel
         $sortColumn = $sort->toHTML()[0];
         $sortDirection = $sort->toHTML()[1];
         $pageSize = 18;
-        $offset = ($page - 1) * 18;
-        $sql = "SELECT * FROM buecher ORDER BY ? ? LIMIT ? OFFSET ?";
+        $offset = ($page - 1) * $pageSize;
+        $sql = "SELECT * FROM buecher ORDER BY `$sortColumn` `$sortDirection` LIMIT ? OFFSET ?";
         $statement = $connection->prepare($sql);
-        $statement->bind_param(
-            "ssii",
-            $sortColumn,
-            $sortDirection,
-            $pageSize,
-            $offset,
-        );
+        $statement->bind_param("ii", $pageSize, $offset);
         $statement->execute();
         $result = $statement->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -54,7 +48,7 @@ class BookModel
         autor LIKE ? OR
         zustand LIKE ?";
 
-        $statement = $connecti->prepare($sql);
+        $statement = $connection->prepare($sql);
 
         $statement->bind_param("sss", $query, $query, $query);
         $statement->execute();
