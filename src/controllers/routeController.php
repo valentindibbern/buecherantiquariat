@@ -4,6 +4,19 @@ declare(strict_types=1);
 class RouteController
 {
     private array $routes = [];
+    private DetailController $detailController;
+    private KachelController $kachelController;
+    private SearchController $searchController;
+
+    public function __construct(
+        DetailController $detailController,
+        KachelController $kachelController,
+        SearchController $searchController,
+    ) {
+        $this->detailController = $detailController;
+        $this->kachelController = $kachelController;
+        $this->searchController = $searchController;
+    }
 
     public function addRoute(string $path, Closure $handler): void
     {
@@ -27,5 +40,29 @@ class RouteController
             echo "Page not found.<br>";
             echo $path;
         }
+    }
+
+    public function configureRoutes(): void
+    {
+        $this->addRoute("/", function () {
+            $this->kachelController->render(
+                (int) ($_GET["page"] ?? 1),
+                $sort,
+                $dir,
+            );
+        });
+        $this->addRoute("/home", function () {
+            $this->kachelController->render(
+                (int) ($_GET["page"] ?? 1),
+                $sort,
+                $dir,
+            );
+        });
+        $this->addRoute("/detail", function () {
+            $this->detailController->render((int) ($_GET["id"] ?? 1));
+        });
+        $this->addRoute("/search", function () {
+            $this->searchController->render((string) ($_GET["search"] ?? ""));
+        });
     }
 }

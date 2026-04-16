@@ -3,44 +3,48 @@ declare(strict_types=1);
 
 class BookModel
 {
-    public static function getTotalPages($conn): int
+    public static function getTotalPages(mysqli $connection): int
     {
         $sql = "SELECT COUNT(*) FROM buecher";
-        $result = $conn->query($sql);
+        $result = $connection->query($sql);
         $row = $result->fetch_row();
         return (int) ceil($row[0] / 18);
     }
 
-    public static function getBooksByPage($conn, $page, string $sort, string $dir): array
-    {
-        $sortColumns = [
-            "title" => "Title",
-            "autor" => "autor",
-            "zustand" => "zustand",
-        ];
-        $sortColumn = $sortColumns[$sort] ?? "Title";
-        $direction = strtolower($dir) === "desc" ? "DESC" : "ASC";
+    public static function getBooksByPage(
+        mysqli $connection,
+        int $page,
+        SortEnum $sort,
+    ): array {
+        $sortColumn = $sort->toHTML()[0];
+        $sortDirection = $sort->toHTML()[1];
         $pageSize = 18;
         $offset = ($page - 1) * 18;
-        $sql = "SELECT * FROM buecher ORDER BY {$sortColumn} {$direction} LIMIT ? OFFSET ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ii", $pageSize, $offset);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $sql = "SELECT * FROM buecher ORDER BY ? ? LIMIT ? OFFSET ?";
+        $statement = $connection->prepare($sql);
+        $statement->bind_param(
+            "ssii",
+            $sortColumn,
+            $sortDirection,
+            $pageSize,
+            $offset,
+        );
+        $statement->execute();
+        $result = $statement->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public static function getBookById($conn, $id): array
+    public static function getBookById(mysqli $connection, int $id): array
     {
         $sql = "SELECT * FROM buecher WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        $stmt = $connection->prepare($sql);
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $result = $statement->get_result();
         return $result->fetch_assoc();
     }
 
-    public static function searchBooks($conn, $query): array
+    public static function searchBooks(mysqli $connection, string $query): array
     {
         $query = "%$query%";
 
@@ -50,12 +54,12 @@ class BookModel
         autor LIKE ? OR
         zustand LIKE ?";
 
-        $stmt = $conn->prepare($sql);
+        $statement = $connecti->prepare($sql);
 
-        $stmt->bind_param("sss", $query, $query, $query);
-        $stmt->execute();
+        $statement->bind_param("sss", $query, $query, $query);
+        $statement->execute();
 
-        $result = $stmt->get_result();
+        $result = $statement->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
