@@ -27,7 +27,6 @@ class MainController
             $this->searchController,
         );
 
-        $this->configurationController->configure();
         $this->routeController->configureRoutes();
 
         $this->routeController->receive();

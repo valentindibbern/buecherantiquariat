@@ -3,23 +3,39 @@ declare(strict_types=1);
 
 class ConfigurationController
 {
-    private DBConnection $dbConnection;
     private mysqli $connection;
 
-    function __construct()
+    public function __construct()
     {
-        $this->dbConnection = new DBConnection();
-        $this->connection = $this->dbConnection->getConnection();
-    }
+        $envContent = FileModel::getFileContent(__DIR__ . "/../../.env.local");
+        $envVars = [];
+        foreach ($envContent as $line) {
+            $line = trim($line);
+            if (empty($line) || str_starts_with($line, "#")) {
+                continue;
+            }
 
-    public function configure(): void
-    {
+            [$key, $value] = explode("=", $line, 2);
+            $key = trim($key);
+            $value = trim($value);
+            $value = trim($value, '"');
+            $envVars[$key] = $value;
+        }
+        $this->connection = new mysqli(
+            $envVars["DB_HOST"],
+            $envVars["DB_USER"],
+            $envVars["DB_PASSWORD"],
+            $envVars["DB_NAME"],
+        );
+        if ($this->connection->connect_error) {
+            die("Connection failed: " . $this->connection->connect_error);
+        }
         CookieModel::configureMaxPages($this->connection);
     }
 
-    public function getDbConnection(): DBConnection
+    public function __destruct()
     {
-        return $this->dbConnection;
+        return $this->connection->close();
     }
 
     public function getConnection(): mysqli
