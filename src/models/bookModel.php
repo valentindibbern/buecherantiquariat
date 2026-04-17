@@ -20,7 +20,7 @@ class BookModel
         $sortDirection = $sort->toHTML()[1];
         $pageSize = 18;
         $offset = ($page - 1) * $pageSize;
-        $sql = "SELECT * FROM buecher ORDER BY `$sortColumn` `$sortDirection` LIMIT ? OFFSET ?";
+        $sql = "SELECT * FROM buecher ORDER BY `$sortColumn` $sortDirection LIMIT ? OFFSET ?";
         $statement = $connection->prepare($sql);
         $statement->bind_param("ii", $pageSize, $offset);
         $statement->execute();
@@ -31,7 +31,7 @@ class BookModel
     public static function getBookById(mysqli $connection, int $id): array
     {
         $sql = "SELECT * FROM buecher WHERE id = ?";
-        $stmt = $connection->prepare($sql);
+        $statement = $connection->prepare($sql);
         $statement->bind_param("i", $id);
         $statement->execute();
         $result = $statement->get_result();

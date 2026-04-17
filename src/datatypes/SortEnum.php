@@ -17,7 +17,7 @@ enum SortEnum: int
             self::AD => "Author Descending",
             self::TA => "Title Ascending",
             self::TD => "Title Descending",
-            self::ZA => "Zustand Descending",
+            self::ZA => "Zustand Ascending",
             self::ZD => "Zustand Descending",
         };
     }
