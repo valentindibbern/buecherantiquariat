@@ -1,34 +1,8 @@
 <?php
 class HeaderComponent
 {
-    public static function render($title, ?string $sortValue = null)
+    public static function render(string $title, string $sort, string $dir)
     {
-        $sortControl = "";
-
-        if ($sortValue !== null) {
-            $selectedTitleAsc = $sortValue === "title_asc" ? "selected" : "";
-            $selectedTitleDesc = $sortValue === "title_desc" ? "selected" : "";
-            $selectedAutorAsc = $sortValue === "autor_asc" ? "selected" : "";
-            $selectedAutorDesc = $sortValue === "autor_desc" ? "selected" : "";
-            $selectedZustandAsc = $sortValue === "zustand_asc" ? "selected" : "";
-            $selectedZustandDesc = $sortValue === "zustand_desc" ? "selected" : "";
-
-            $sortControl = <<<EOT
-                            <li class="horizontal-list-element nav-item sort-item">
-                                <form method="get" action="home" class="sort-form">
-                                    <select name="sort_option" class="sort-select" onchange="this.form.submit()">
-                                        <option value="title_asc" {$selectedTitleAsc}>Titel A-Z</option>
-                                        <option value="title_desc" {$selectedTitleDesc}>Titel Z-A</option>
-                                        <option value="autor_asc" {$selectedAutorAsc}>Autor A-Z</option>
-                                        <option value="autor_desc" {$selectedAutorDesc}>Autor Z-A</option>
-                                        <option value="zustand_asc" {$selectedZustandAsc}>Zustand auf</option>
-                                        <option value="zustand_desc" {$selectedZustandDesc}>Zustand ab</option>
-                                    </select>
-                                </form>
-                            </li>
-            EOT;
-        }
-
         echo <<<EOT
             <nav class="navbar">
                 <h1 class="navbar-brand">$title</h1>
@@ -40,7 +14,18 @@ class HeaderComponent
                             <button type="submit" class="search-button">Search</button>
                         </form>
                     </li>
-                    {$sortControl}
+                    <li>
+                        <form method="get" action="home" class="sort-form">
+                            <select name="sort" class="sort-select" onchange="this.form.submit()">
+                                <option value="titel" {$sort === "titel" ? "selected" : ""}>Titel</option>
+                                <option value="autor" {$sort === "autor" ? "selected" : ""}>Autor</option>
+                                <option value="zustand" {$sort === "zustand" ? "selected" : ""}>Zustand</option>
+                            </select>
+                            <select name="dir" class="sort-select" onchange="this.form.submit()">
+                                <option value="asc" {$dir === "asc" ? "selected" : ""}>Aufsteigend</option>
+                                <option value="desc" {$dir === "desc" ? "selected" : ""}>Absteigend</option>
+                        </form>
+                    </li>
                 </ul>
             </nav>
         EOT;
