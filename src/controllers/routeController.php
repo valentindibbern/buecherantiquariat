@@ -50,7 +50,7 @@ class RouteController
             $this->kachelController->render(
                 (int) ($_GET["page"] ?? 1),
                 (int) CookieModel::getMaxPages($innerConnection),
-                (string) ($_GET["sort"] ?? "titel"),
+                (string) ($_GET["sort"] ?? "title"),
                 (string) ($_GET["dir"] ?? "asc"),
             );
         });
@@ -60,7 +60,7 @@ class RouteController
             $this->kachelController->render(
                 (int) ($_GET["page"] ?? 1),
                 (int) CookieModel::getMaxPages($innerConnection),
-                (string) ($_GET["sort"] ?? "titel"),
+                (string) ($_GET["sort"] ?? "title"),
                 (string) ($_GET["dir"] ?? "asc"),
             );
         });

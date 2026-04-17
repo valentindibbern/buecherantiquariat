@@ -17,13 +17,14 @@ class HeaderComponent
                     <li>
                         <form method="get" action="home" class="sort-form">
                             <select name="sort" class="sort-select" onchange="this.form.submit()">
-                                <option value="titel" {$sort === "titel" ? "selected" : ""}>Titel</option>
-                                <option value="autor" {$sort === "autor" ? "selected" : ""}>Autor</option>
-                                <option value="zustand" {$sort === "zustand" ? "selected" : ""}>Zustand</option>
+                                <option value="titel" {($sort === "titel" ? "selected" : "")}>Titel</option>
+                                <option value="autor" {($sort === "autor" ? "selected" : "")}>Autor</option>
+                                <option value="zustand" {($sort === "zustand" ? "selected" : "")}>Zustand</option>
                             </select>
                             <select name="dir" class="sort-select" onchange="this.form.submit()">
-                                <option value="asc" {$dir === "asc" ? "selected" : ""}>Aufsteigend</option>
-                                <option value="desc" {$dir === "desc" ? "selected" : ""}>Absteigend</option>
+                                <option value="asc" {($dir === "asc" ? "selected" : "")}>Aufsteigend</option>
+                                <option value="desc" {($dir === "desc" ? "selected" : "")}>Absteigend</option>
+                            </select>
                         </form>
                     </li>
                 </ul>
