@@ -14,13 +14,12 @@ class BookModel
     public static function getBooksByPage(
         mysqli $connection,
         int $page,
-        SortEnum $sort,
+        string $sort,
+        string $dir,
     ): array {
-        $sortColumn = $sort->toHTML()[0];
-        $sortDirection = $sort->toHTML()[1];
         $pageSize = 18;
         $offset = ($page - 1) * $pageSize;
-        $sql = "SELECT * FROM buecher ORDER BY `$sortColumn` $sortDirection LIMIT ? OFFSET ?";
+        $sql = "SELECT * FROM buecher ORDER BY `$sort` $dir LIMIT ? OFFSET ?";
         $statement = $connection->prepare($sql);
         $statement->bind_param("ii", $pageSize, $offset);
         $statement->execute();
