@@ -27,9 +27,13 @@ class MainController
             $this->searchController,
         );
 
-        $this->routeController->configureRoutes();
+        $this->routeController->configureRoutes(
+            $this->configurationController->getConnection(),
+        );
 
-        $this->routeController->receive();
+        $this->routeController->receive(
+            $this->configurationController->getConnection(),
+        );
     }
 }
 ?>

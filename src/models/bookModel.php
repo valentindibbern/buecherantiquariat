@@ -17,6 +17,38 @@ class BookModel
         string $sort,
         string $dir,
     ): array {
+        switch ($sort) {
+            case "Title":
+            case "title":
+            case "Titel":
+            case "titel":
+                $sort = "Title";
+                break;
+            case "Autor":
+            case "autor":
+                $sort = "autor";
+                break;
+            case "Zustand":
+            case "zustand":
+                $sort = "zustand";
+                break;
+            default:
+                $sort = "Title";
+        }
+
+        switch ($dir) {
+            case "ASC":
+            case "asc":
+                $dir = "ASC";
+                break;
+            case "DESC":
+            case "desc":
+                $dir = "DESC";
+                break;
+            default:
+                $dir = "ASC";
+        }
+
         $pageSize = 18;
         $offset = ($page - 1) * $pageSize;
         $sql = "SELECT * FROM buecher ORDER BY `$sort` $dir LIMIT ? OFFSET ?";
