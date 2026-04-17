@@ -14,9 +14,9 @@ Fuer den lokalen Start mit XAMPP siehe `docs/setup.md`.
 - `src/views`: HTML-Ausgabe
 - `src/components`: wiederverwendbare UI-Bausteine
 - `src/datatypes`: Enums fuer Zustands-, Verkaufs- und Kategorienwerte
-- `src/unique`: projektweite Hilfsklassen
 - `assets`: SQL und statische Ressourcen
 - `docs`: Projektdokumentation
+- `styles.css`: globales Stylesheet
 
 ## Dokumentation
 

@@ -4,6 +4,8 @@
 
 Die vorhandene SQL-Struktur liegt in `assets/books.sql`.
 
+Der Dump nennt die Datenbank `bookstest`, waehrend die Anwendung den Datenbanknamen aus `.env.local` liest.
+
 ## Aktive Anwendungsdaten
 
 Die Anwendung arbeitet derzeit direkt mit der Tabelle `buecher`.
@@ -37,9 +39,21 @@ Im aktuellen PHP-Code wird aber nur `buecher` verwendet.
 `src/models/BookModel.php` fuehrt vier Query-Typen aus:
 
 - Gesamtanzahl aller Buecher
-- Seitenweise Laden mit `LIMIT` und `OFFSET`
+- Seitenweises Laden mit `ORDER BY`, `LIMIT` und `OFFSET`
 - Laden eines Buchs per ID
 - Suche per `LIKE`
+
+## Sortierung
+
+Die Katalogansicht erlaubt aktuell Sortierung ueber die Query-Parameter `sort` und `dir`.
+
+Intern werden nur diese Spalten zugelassen:
+
+- `Title`
+- `autor`
+- `zustand`
+
+Fuer die Richtung werden nur `ASC` und `DESC` akzeptiert.
 
 ## Suchlogik
 
@@ -54,3 +68,5 @@ Beschreibung, Kategorie und Verkaufsstatus werden in der Suche derzeit nicht ber
 ## Seitengroesse
 
 Die Startseiten-Paginierung geht von 18 Eintraegen pro Seite aus.
+
+Die Gesamtseitenzahl wird beim Start ueber `BookModel::getTotalPages()` berechnet und anschliessend per Cookie `__Secure-maxPages` zwischengespeichert.

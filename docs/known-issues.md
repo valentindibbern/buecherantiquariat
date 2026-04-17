@@ -5,36 +5,43 @@ Diese Punkte sind keine neuen Anforderungen, sondern Beobachtungen aus der aktue
 ## Rendering-Struktur
 
 - Views erzeugen bereits `<!DOCTYPE html>`, `<html>`, `<head>` und `<body>`.
-- `src/components/HeaderComponent.php` erzeugt ebenfalls erneut ein komplettes HTML-Dokumentgeruest.
-- `src/components/FooterComponent.php` schliesst ebenfalls `</body>` und `</html>`.
+- `HeaderComponent::render()` erwartet drei Parameter: `title`, `sort`, `dir`.
+- `DetailView` und `SearchView` rufen `HeaderComponent::render()` aktuell nur mit dem Titel auf.
 
-Das fuehrt strukturell zu doppelten HTML-Tags.
+Das fuehrt auf Seiten ausserhalb der Katalogansicht zu einem Laufzeitfehler durch zu wenige Argumente.
+
+## Sort-UI im Header
+
+- In `src/components/HeaderComponent.php` stehen die `selected`-Markierungen als Ausdruck in der Heredoc-Ausgabe.
+- Diese Ausdruecke werden dort nicht als PHP ausgewertet.
+
+Die aktuelle Sortierauswahl wird deshalb im Markup nicht korrekt als ausgewaehlt markiert.
 
 ## Stylesheet-Pfade
 
 - Die Views referenzieren `styles.css`.
-- Der Header referenziert stattdessen `src/css/styles.css`, `src/css/input.css` und `src/css/output.css`.
 
-Aus dem aktuellen Repository ist nur `styles.css` sichtbar. Die im Header referenzierten CSS-Dateien sind in der aktuellen Struktur nicht vorhanden.
+Im aktuellen `master` ist nur dieses Stylesheet vorhanden. Ein separates `src/css/*`-Setup existiert hier nicht.
 
 ## Cookie fuer Paginierung
 
-- `MainController` setzt `totalPages` per Cookie.
-- `KachelView` liest den Wert direkt aus `$_COOKIE`.
+- `ConfigurationController` setzt die Seitenzahl ueber `CookieModel` per Cookie.
+- `RouteController` liest die Gesamtseitenzahl fuer `/` und `/home` ueber `CookieModel::getMaxPages()` erneut aus.
 
-Das koppelt Rendering an Client-Zustand, obwohl die Information serverseitig bereits bekannt ist.
+Das koppelt Routing und Rendering an Client-Zustand, obwohl die Information serverseitig bereits bekannt ist.
 
 ## Harte Konfiguration
 
 - Basispfad `/buecherantiquariat` ist fest im `RouteController` hinterlegt.
-- Datenbankzugang ist fest in `DBConnection` hinterlegt.
+- `DB_PORT` aus `.env.local` wird aktuell ignoriert.
 
 Das erschwert Deployment auf andere Umgebungen.
 
 ## Codequalitaet
 
 - Schreibweise `querry` in `SearchController` ist inkonsistent.
-- In `MainController` existiert die ungenutzte Variable `$altconn`.
+- `RouteController::configureRoutes()` deklariert `use ($outerConnection)`, nutzt die Variable in den Closures aber nicht.
+- `MainController` uebergibt die Verbindung mehrfach weiter, obwohl sie in den Feature-Controllern bereits gespeichert ist.
 - `src/datatypes/KategorieEnum.php` wird im aktuellen Rendering kaum oder gar nicht aktiv genutzt.
 - Unbekannte Routen liefern nur einfachen Text statt einer HTTP-Fehlerseite.
 
@@ -45,4 +52,4 @@ Das erschwert Deployment auf andere Umgebungen.
 
 ## Datenquelle
 
-Der SQL-Dump nennt als Datenbank `bookstest`, waehrend der Anwendungscode `books` verwendet. Das sollte bei Setup oder Migrationen beachtet werden.
+Der SQL-Dump nennt als Datenbank `bookstest`, waehrend der Anwendungscode den Namen aus `.env.local` liest. Das sollte bei Setup oder Migrationen beachtet werden.

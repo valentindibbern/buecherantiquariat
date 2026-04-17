@@ -8,7 +8,7 @@
 - `src/views`: Seitenrendering
 - `src/components`: wiederverwendete HTML-Bausteine
 - `src/datatypes`: Enums fuer Zustands- und Kategoriewerte
-- `src/unique`: technische Querschnittsklassen wie Datenbankverbindung
+- `styles.css`: globales Stylesheet im Projektwurzelverzeichnis
 
 ## Architekturstil
 
@@ -28,10 +28,10 @@ Die Trennung ist pragmatisch, aber nicht strikt. HTML-Erzeugung ist ueber Views 
 
 Aufgaben:
 
-- Aufbau der Datenbankverbindung
+- Aufbau der Datenbankverbindung ueber `ConfigurationController`
 - Instanziierung der Feature-Controller
 - Registrierung der Routen
-- Setzen des Cookies `totalPages`
+- Starten des Dispatches ueber den `RouteController`
 
 ### RouteController
 
@@ -42,6 +42,7 @@ Besonderheiten:
 - kein HTTP-Method-Routing
 - keine Middleware
 - keine Fehlerseiten
+- Basispfad `/buecherantiquariat` ist fest im Code hinterlegt
 - unbekannte Routen werden direkt als Text ausgegeben
 
 ### Feature-Controller
@@ -57,7 +58,7 @@ Besonderheiten:
 Vorhandene Methoden:
 
 - `getTotalPages($conn)`: berechnet Seitenanzahl bei 18 Eintraegen pro Seite
-- `getBooksByPage($conn, $page)`: laedt eine Seite von Datensaetzen
+- `getBooksByPage($conn, $page, $sort, $dir)`: laedt eine Seite von Datensaetzen mit einfacher Sortierung
 - `getBookById($conn, $id)`: laedt einen einzelnen Datensatz
 - `searchBooks($conn, $query)`: sucht in `Title`, `autor` und `zustand`
 
@@ -80,15 +81,20 @@ Components:
 
 ## Datenbankverbindung
 
-`src/unique/DBConnection.php` kapselt den `mysqli`-Connect.
+`src/controllers/ConfigurationController.php` liest `.env.local` zeilenweise ein und baut daraus die `mysqli`-Verbindung.
 
-Fest im Code hinterlegt sind aktuell:
+Aktiv ausgewertet werden aktuell:
 
-- Host: `127.0.0.1`
-- Datenbank: `books`
-- Benutzer: `root`
-- Passwort: leer
-- Port: `3307`
+- `DB_HOST`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_NAME`
+
+Hinweise zum Ist-Zustand:
+
+- `.env.local` liegt im Projektwurzelverzeichnis
+- `DB_PORT` ist laut Setup vorhanden, wird aber aktuell nicht an `mysqli` weitergegeben
+- `ConfigurationController` ruft beim Start `CookieModel::configureMaxPages()` auf
 
 ## Enums und Domaintypen
 
@@ -99,3 +105,5 @@ Unter `src/datatypes` gibt es drei Enums:
 - `src/datatypes/KategorieEnum.php`
 
 Sie wandeln interne Werte in lesbare Labels um. Aktiv genutzt werden aktuell vor allem `ZustandEnum` und `VerkauftEnum`.
+
+`KategorieEnum` ist vorhanden, wird im aktuellen Rendering der Seiten aber nicht aktiv zur Label-Ausgabe verwendet.

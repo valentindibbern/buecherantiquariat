@@ -27,13 +27,15 @@ Erwartete URL:
 
 ## Datenbank
 
-Der Anwendungscode verwendet aktuell diese Verbindungsdaten aus `src/unique/DBConnection.php`:
+Der Anwendungscode liest die Verbindungsdaten aktuell aus der Datei `.env.local` im Projektwurzelverzeichnis. Eingelesen werden sie in `src/controllers/ConfigurationController.php`.
 
-- Host: `127.0.0.1`
-- Port: `3307`
-- Datenbankname: `books`
-- Benutzer: `root`
-- Passwort: leer
+Erwartete Schluessel:
+
+- `DB_HOST`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_NAME`
+- `DB_PORT` ist in der lokalen Konfiguration moeglich, wird vom aktuellen Code aber nicht verwendet
 
 ## SQL-Import
 
@@ -42,13 +44,13 @@ Die vorhandene SQL-Datei liegt in `assets/books.sql`.
 Wichtig:
 
 - Der SQL-Dump nennt als Datenbank an mindestens einer Stelle `bookstest`.
-- Der Anwendungscode verbindet sich aber mit `books`.
+- Der Anwendungscode verbindet sich mit dem in `.env.local` gesetzten `DB_NAME`.
 
 Fuer einen funktionierenden lokalen Start sollten Datenbankname im Import und im Anwendungscode zusammenpassen. Der einfachste Weg ist meist:
 
-1. Eine Datenbank `books` anlegen.
+1. Eine Datenbank anlegen, deren Name zu `DB_NAME` in `.env.local` passt.
 2. Den Dump `assets/books.sql` importieren.
-3. Falls der Dump auf `bookstest` festgelegt ist, den Datenbanknamen vor dem Import anpassen oder den Import gezielt in `books` ausfuehren.
+3. Falls der Dump auf `bookstest` festgelegt ist, den Datenbanknamen vor dem Import anpassen oder den Import gezielt in die konfigurierte Datenbank ausfuehren.
 
 ## Startpruefung
 
@@ -62,16 +64,14 @@ Wenn Apache und Datenbank laufen, sollten diese Seiten erreichbar sein:
 ## Typische Stolpersteine
 
 - Apache laeuft, aber Rewrite greift nicht: `mod_rewrite` oder `.htaccess` wird nicht angewendet.
-- Datenbankverbindung scheitert: Port `3307` stimmt lokal nicht.
-- Leere oder fehlerhafte Ausgabe: Datenbank `books` wurde nicht importiert oder enthaelt nicht die erwarteten Tabellen.
-- CSS wirkt unvollstaendig: Der Code referenziert teils Stylesheets, die im aktuellen Repository nicht vorhanden sind.
+- Datenbankverbindung scheitert: `.env.local` fehlt, ist unvollstaendig oder enthaelt abweichende Werte.
+- Abweichender MySQL-Port: `DB_PORT` ist zwar in der Konfiguration moeglich, wird im aktuellen Code aber nicht an `mysqli` weitergegeben.
+- Leere oder fehlerhafte Ausgabe: Die in `DB_NAME` konfigurierte Datenbank wurde nicht importiert oder enthaelt nicht die erwarteten Tabellen.
+- Aufruf von `/detail` oder `/search` kann aktuell an der `HeaderComponent`-Signatur scheitern.
 
 ## Empfehlung fuer spaeter
 
 Fuer kuenftige Weiterentwicklung sollten mindestens diese Werte konfigurierbar gemacht werden:
 
 - Basispfad
-- Datenbankname
-- Datenbankport
-- Datenbankbenutzer
-- Datenbankpasswort
+- konsistente Nutzung der vorhandenen Datenbankvariablen inklusive `DB_PORT`
