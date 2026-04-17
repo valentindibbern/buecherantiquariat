@@ -9,8 +9,6 @@ class KachelView
         string $sort,
         string $dir,
     ) {
-        $sortValue = $sort . "_" . $dir;
-
         echo <<<EOT
             <!DOCTYPE html>
             <html>

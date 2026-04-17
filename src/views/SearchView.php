@@ -2,7 +2,7 @@
 
 class SearchView
 {
-    public static function render($contentArray): void
+    public static function render(array $contentArray): void
     {
         echo <<<EOT
             <!DOCTYPE html>
