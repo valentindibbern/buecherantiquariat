@@ -2,8 +2,12 @@
 
 class KachelView
 {
-    public static function render($contentArray, $currentPage, string $sort, string $dir)
-    {
+    public static function render(
+        array $contentArray,
+        int $currentPage,
+        string $sort,
+        string $dir,
+    ) {
         $sortValue = $sort . "_" . $dir;
 
         echo <<<EOT
