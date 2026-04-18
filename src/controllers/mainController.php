@@ -8,6 +8,8 @@ class MainController
     private KachelController $kachelController;
     private RouteController $routeController;
     private SearchController $searchController;
+    private LoginController $loginController;
+    private AdminController $adminController;
 
     public function __construct()
     {
@@ -21,10 +23,16 @@ class MainController
         $this->searchController = new SearchController(
             $this->configurationController->getConnection(),
         );
+        $this->loginController = new LoginController(
+            $this->configurationController->getConnection(),
+        );
+        $this->adminController = new AdminController();
         $this->routeController = new RouteController(
             $this->detailController,
             $this->kachelController,
             $this->searchController,
+            $this->loginController,
+            $this->adminController,
         );
 
         $this->routeController->configureRoutes(

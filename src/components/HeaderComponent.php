@@ -41,6 +41,9 @@ class HeaderComponent
                             </select>
                         </form>
                     </li>
+                    <li>
+                        <a href="login">Loggin</a>
+                    </li>
                 </ul>
             </nav>
             <hr>

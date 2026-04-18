@@ -1,7 +1,7 @@
 <?php
 class DetailView
 {
-    public static function render(array $book, string $sort, string $dir)
+    public static function render(array $book, string $sort, string $dir): void
     {
         $titel = $book["Title"] ?? "Titel nicht verfügbar";
         $image = $book["foto"] ?? "Bild nicht verfügbar";

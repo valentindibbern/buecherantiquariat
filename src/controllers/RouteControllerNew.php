@@ -81,9 +81,20 @@ class RouteController
             $this->searchController->render((string) ($_GET["search"] ?? ""));
         });
         $this->addRoute("/login", function () {
-            $this->loginController->render();
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $this->loginController->authenticate();
+            } elseif ($_SERVER["REQUEST_METHOD"] === "GET") {
+                $this->loginController->render();
+            }
         });
         $this->addRoute("/admin", function () {
+            if (
+                !isset($_SESSION["authenticated"]) ||
+                !$_SESSION["authenticated"]
+            ) {
+                header("Location: /login");
+                exit();
+            }
             $this->adminController->render();
         });
     }
