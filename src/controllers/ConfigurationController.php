@@ -23,11 +23,11 @@ class ConfigurationController
             $envVars[$key] = $value;
         }
         $this->connection = new mysqli(
-            $envVars["DB_HOST"],
-            $envVars["DB_USER"],
-            $envVars["DB_PASSWORD"],
-            $envVars["DB_NAME"],
-            $envVars["DB_PORT"],
+            (string) $envVars["DB_HOST"],
+            (string) $envVars["DB_USER"],
+            (string) $envVars["DB_PASSWORD"],
+            (string) $envVars["DB_NAME"],
+            (int) $envVars["DB_PORT"],
         );
         if ($this->connection->connect_error) {
             die("Connection failed: " . $this->connection->connect_error);
