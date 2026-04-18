@@ -65,7 +65,11 @@ class RouteController
             );
         });
         $this->addRoute("/detail", function () {
-            $this->detailController->render((int) ($_GET["id"] ?? 1));
+            $this->detailController->render(
+                (int) ($_GET["id"] ?? 1),
+                (string) ($_GET["sort"] ?? "title"),
+                (string) ($_GET["dir"] ?? "asc"),
+            );
         });
         $this->addRoute("/search", function () {
             $this->searchController->render((string) ($_GET["search"] ?? ""));

@@ -18,17 +18,17 @@ class HeaderComponent
         $descSelected = $dir === "desc" ? "selected" : "";
 
         echo <<<EOT
+            <h1 class="page-title"><a href="home">Bücher Antiquariat</a></h1>
+            <hr>
             <nav class="navbar">
-                <h1 class="navbar-brand">$title</h1>
                 <ul class="horizontal-list">
-                    <li class="horizontal-list-element nav-item"><a href="home">Home</a></li>
                     <li class="horizontal-list-element nav-item">
                         <form method="get" action="search" class="search-form">
                             <input name="search" type="search" placeholder="Search..." class="search-input">
                             <button type="submit" class="search-button">Search</button>
                         </form>
                     </li>
-                    <li>
+                    <li class="horizontal-list-element nav-item">
                         <form method="get" action="home" class="sort-form">
                             <select name="sort" class="sort-select" onchange="this.form.submit()">
                                 <option value="title" $titelSelected>Titel</option>
@@ -43,6 +43,7 @@ class HeaderComponent
                     </li>
                 </ul>
             </nav>
+            <hr>
         EOT;
     }
 }

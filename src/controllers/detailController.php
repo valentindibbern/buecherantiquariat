@@ -12,14 +12,14 @@ class DetailController
         $this->info = [];
     }
 
-    public function getBook(int $id = 1): void
+    public function getBook(int $id): void
     {
         $this->info = BookModel::getBookById($this->conn, $id);
     }
 
-    public function render(int $id): void
+    public function render(int $id, string $sort, string $dir): void
     {
         $this->getBook($id);
-        DetailView::render($this->info);
+        DetailView::render($this->info, $sort, $dir);
     }
 }

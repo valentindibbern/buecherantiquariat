@@ -15,6 +15,7 @@ class PaginatorComponent
         switch ($currentPage) {
             case 1:
                 echo <<<EOT
+                <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
                         <li class="horizontal-list-element align-center current-page">1</li>
@@ -22,10 +23,12 @@ class PaginatorComponent
                         <li class="horizontal-list-element margin-left-auto last-page"><a href="home?page={$totalPages}">{$totalPages}</a></li>
                     </ul>
                 </div>
+                <hr>
                 EOT;
                 break;
             case 2:
                 echo <<<EOT
+                <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
                         <li class="horizontal-list-element margin-right-auto previous-page"><a href="home?page=1">1</a></li>
@@ -34,10 +37,12 @@ class PaginatorComponent
                         <li class="horizontal-list-element margin-left-auto last-page"><a href="home?page={$totalPages}">{$totalPages}</a></li>
                     </ul>
                 </div>
+                <hr>
                 EOT;
                 break;
             case $totalPages - 1:
                 echo <<<EOT
+                <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
                         <li class="horizontal-list-element margin-right-auto first-page"><a href="home?page=1">1</a></li>
@@ -46,10 +51,12 @@ class PaginatorComponent
                         <li class="horizontal-list-element margin-left-auto last-page"><a href="home?page={$totalPages}">{$totalPages}</a></li>
                     </ul>
                 </div>
+                <hr>
                 EOT;
                 break;
             case $totalPages:
                 echo <<<EOT
+                <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
                         <li class="horizontal-list-element margin-right-auto first-page"><a href="home?page=1">1</a></li>
@@ -57,10 +64,12 @@ class PaginatorComponent
                         <li class="horizontal-list-element align-center current-page">{$currentPage}</li>
                     </ul>
                 </div>
+                <hr>
                 EOT;
                 break;
             default:
                 echo <<<EOT
+                <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
                         <li class="horizontal-list-element margin-right-auto first-page"><a href="home?page=1">1</a></li>
@@ -70,6 +79,7 @@ class PaginatorComponent
                         <li class="horizontal-list-element margin-left-auto last-page"><a href="home?page={$totalPages}">{$totalPages}</a></li>
                     </ul>
                 </div>
+                <hr>
                 EOT;
                 break;
         }

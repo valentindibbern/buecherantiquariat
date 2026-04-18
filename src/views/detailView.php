@@ -1,7 +1,7 @@
 <?php
 class DetailView
 {
-    public static function render(array $book)
+    public static function render(array $book, string $sort, string $dir)
     {
         $titel = $book["Title"] ?? "Titel nicht verfügbar";
         $image = $book["foto"] ?? "Bild nicht verfügbar";
@@ -28,7 +28,7 @@ class DetailView
                 <body>
         EOT;
 
-        HeaderComponent::render($titel);
+        HeaderComponent::render($titel, $sort, $dir);
 
         echo <<<EOT
             <div class="detail-container">
