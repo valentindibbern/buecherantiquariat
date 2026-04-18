@@ -9,6 +9,7 @@ class ConfigurationController
     {
         $envContent = FileModel::getFileContent(__DIR__ . "/../../.env.local");
         $envVars = [];
+
         foreach ($envContent as $line) {
             $line = trim($line);
             if (empty($line) || str_starts_with($line, "#")) {
