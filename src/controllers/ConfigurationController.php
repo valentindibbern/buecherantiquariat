@@ -27,6 +27,7 @@ class ConfigurationController
             $envVars["DB_USER"],
             $envVars["DB_PASSWORD"],
             $envVars["DB_NAME"],
+            $envVars["DB_PORT"],
         );
         if ($this->connection->connect_error) {
             die("Connection failed: " . $this->connection->connect_error);
