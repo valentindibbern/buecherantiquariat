@@ -7,7 +7,7 @@ class UserModel
         mysqli $connection,
         string $username,
     ): bool {
-        $sql = "SELECT COUNT(*) FROM users WHERE username = ?";
+        $sql = "SELECT COUNT(*) FROM benutzer WHERE benutzername = ?";
         $statement = $connection->prepare($sql);
         $statement->bind_param("s", $username);
         $statement->execute();
@@ -20,7 +20,7 @@ class UserModel
         mysqli $connection,
         string $username,
     ): ?string {
-        $sql = "SELECT password FROM users WHERE username = ?";
+        $sql = "SELECT password FROM benutzer WHERE benutzername = ?";
         $statement = $connection->prepare($sql);
         $statement->bind_param("s", $username);
         $statement->execute();

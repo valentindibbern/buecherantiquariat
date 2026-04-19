@@ -12,6 +12,16 @@ class LoginController
 
     public function authenticate()
     {
+        // 1. Prüfen, ob POST-Daten überhaupt ankommen
+        if (empty($_POST)) {
+            die("ERROR: POST-Daten sind leer!");
+        }
+
+        // 2. Prüfen, ob Header bereits gesendet wurden
+        if (headers_sent($file, $line)) {
+            die("ERROR: Headers already sent in $file:$line");
+        }
+
         $username = $_POST["username"];
         $password = $_POST["password"];
 
@@ -27,7 +37,7 @@ class LoginController
             $_SESSION["username"] = $username;
             $_SESSION["authenticated"] = true;
 
-            header("Location: /admin");
+            header("Location: /home");
             exit();
         }
 

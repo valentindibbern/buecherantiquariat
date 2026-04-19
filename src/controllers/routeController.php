@@ -70,20 +70,36 @@ class RouteController
                 (string) ($_GET["dir"] ?? "asc"),
             );
         });
-        $this->addRoute("/detail", function () {
+        $this->addRoute("/detail", function (mysqli $innerConnection) use (
+            $outerConnection,
+        ) {
             $this->detailController->render(
                 (int) ($_GET["id"] ?? 1),
                 (string) ($_GET["sort"] ?? "title"),
                 (string) ($_GET["dir"] ?? "asc"),
             );
         });
-        $this->addRoute("/search", function () {
+        $this->addRoute("/search", function (mysqli $innerConnection) use (
+            $outerConnection,
+        ) {
             $this->searchController->render((string) ($_GET["search"] ?? ""));
         });
-        $this->addRoute("/login", function () {
-            $this->loginController->render();
+        $this->addRoute("/login", function (mysqli $innerConnection) use (
+            $outerConnection,
+        ) {
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $this->loginController->authenticate();
+            } elseif ($_SERVER["REQUEST_METHOD"] === "GET") {
+                $this->loginController->render();
+            }
         });
-        $this->addRoute("/admin", function () {
+        $this->addRoute("/admin", function (mysqli $innerConnection) use (
+            $outerConnection,
+        ) {
+            if (!$_SESSION["authenticated"]) {
+                header("Location: /login");
+                exit();
+            }
             $this->adminController->render();
         });
     }
