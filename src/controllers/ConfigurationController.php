@@ -5,23 +5,24 @@ class ConfigurationController
 {
     private mysqli $connection;
 
-    public function __construct() {}
-
-    public function __destruct()
-    {
-        return $this->connection->close();
-    }
-
-    public function getConnection(): mysqli
-    {
-        return $this->connection;
-    }
-
-    private function loadENV(): array {}
-
     public function configure(): bool
     {
-        $envContent = FileModel::getFileContent(__DIR__ . "/../../.env.local");
+        $envContent = $this->loadENV();
+        $envVars = $this->createENV($envContent);
+        $this->createConst($envVars);
+        $this->connection = $this->createConnection();
+        CookieModel::configureMaxPages($this->connection);
+
+        return bool;
+    }
+
+    private function loadENV(): array
+    {
+        return FileModel::getFileContent(__DIR__ . "/../../.env.local");
+    }
+
+    private function createENV(array $envContent): array
+    {
         $envVars = [];
 
         foreach ($envContent as $line) {
@@ -35,18 +36,44 @@ class ConfigurationController
             $value = trim($value);
             $value = trim($value, '"');
             $envVars[$key] = $value;
+            return $envVars;
         }
-        $this->connection = new mysqli(
-            (string) $envVars["DB_HOST"],
-            (string) $envVars["DB_USER"],
-            (string) $envVars["DB_PASSWORD"],
-            (string) $envVars["DB_NAME"],
-            (int) $envVars["DB_PORT"],
+    }
+
+    private function createConst(array $values): bool
+    {
+        foreach ($values as $key => $value) {
+            define($key, $value);
+        }
+
+        return true;
+    }
+
+    private function createConnection(): mysqli
+    {
+        $connection = new mysqli(
+            (string) DB_HOST,
+            (string) DB_USER,
+            (string) DB_PASSWORD,
+            (string) DB_NAME,
+            (int) DB_PORT,
         );
-        if ($this->connection->connect_error) {
-            die("Connection failed: " . $this->connection->connect_error);
+
+        if ($connection->connect_error) {
+            die("Connection failed: " . $connection->connect_error);
         }
-        CookieModel::configureMaxPages($this->connection);
+
+        return $connection;
+    }
+
+    public function __destruct()
+    {
+        return $this->connection->close();
+    }
+
+    public function getConnection(): mysqli
+    {
+        return $this->connection;
     }
 }
 
