@@ -14,6 +14,8 @@ class MainController
     public function __construct()
     {
         $this->configurationController = new ConfigurationController();
+        $this->configurationController->configure();
+
         $this->detailController = new DetailController(
             $this->configurationController->getConnection(),
         );
