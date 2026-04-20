@@ -1,0 +1,9 @@
+{
+  "ensure_final_newline_on_save": false,
+
+  "languages": {
+    "PHP": {
+      "language_servers": ["intelephense", "!phpactor"]
+    }
+  }
+}

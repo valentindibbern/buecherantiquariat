@@ -5,7 +5,21 @@ class ConfigurationController
 {
     private mysqli $connection;
 
-    public function __construct()
+    public function __construct() {}
+
+    public function __destruct()
+    {
+        return $this->connection->close();
+    }
+
+    public function getConnection(): mysqli
+    {
+        return $this->connection;
+    }
+
+    private function loadENV(): array {}
+
+    public function configure(): bool
     {
         $envContent = FileModel::getFileContent(__DIR__ . "/../../.env.local");
         $envVars = [];
@@ -33,16 +47,6 @@ class ConfigurationController
             die("Connection failed: " . $this->connection->connect_error);
         }
         CookieModel::configureMaxPages($this->connection);
-    }
-
-    public function __destruct()
-    {
-        return $this->connection->close();
-    }
-
-    public function getConnection(): mysqli
-    {
-        return $this->connection;
     }
 }
 

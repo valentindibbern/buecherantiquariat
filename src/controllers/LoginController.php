@@ -12,6 +12,8 @@ class LoginController
 
     public function authenticate()
     {
+        session_start();
+
         // 1. Prüfen, ob POST-Daten überhaupt ankommen
         if (empty($_POST)) {
             die("ERROR: POST-Daten sind leer!");
@@ -25,8 +27,6 @@ class LoginController
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        session_start();
-
         if (
             UserModel::userExists($this->connection, $username) &&
             password_verify(
@@ -37,7 +37,7 @@ class LoginController
             $_SESSION["username"] = $username;
             $_SESSION["authenticated"] = true;
 
-            header("Location: /home");
+            header("Location: /admin");
             exit();
         }
 

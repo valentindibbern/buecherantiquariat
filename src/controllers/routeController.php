@@ -91,6 +91,8 @@ class RouteController
                 $this->loginController->authenticate();
             } elseif ($_SERVER["REQUEST_METHOD"] === "GET") {
                 $this->loginController->render();
+            } else {
+                echo "Problem";
             }
         });
         $this->addRoute("/admin", function (mysqli $innerConnection) use (
