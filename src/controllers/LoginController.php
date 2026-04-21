@@ -37,11 +37,11 @@ class LoginController
             $_SESSION["username"] = $username;
             $_SESSION["authenticated"] = true;
 
-            header("Location: /admin");
+            header("Location: " . BASE_URL . "/admin");
             exit();
         }
 
-        header("Location: /login");
+        header("Location: " . BASE_URL . "/login");
         exit();
     }
 

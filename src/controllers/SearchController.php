@@ -16,9 +16,9 @@ class SearchController
         $this->info = BookModel::searchBooks($this->conn, $querry);
     }
 
-    public function render(string $querry): void
+    public function render(string $querry, string $sort, string $dir): void
     {
         $this->update($querry);
-        SearchView::render($this->info);
+        SearchView::render($this->info, $sort, $dir);
     }
 }

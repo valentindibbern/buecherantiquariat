@@ -82,7 +82,11 @@ class RouteController
         $this->addRoute("/search", function (mysqli $innerConnection) use (
             $outerConnection,
         ) {
-            $this->searchController->render((string) ($_GET["search"] ?? ""));
+            $this->searchController->render(
+                (string) ($_GET["search"] ?? ""),
+                (string) ($_GET["sort"] ?? "title"),
+                (string) ($_GET["dir"] ?? "asc"),
+            );
         });
         $this->addRoute("/login", function (mysqli $innerConnection) use (
             $outerConnection,

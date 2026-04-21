@@ -13,7 +13,7 @@ class ConfigurationController
         $this->connection = $this->createConnection();
         CookieModel::configureMaxPages($this->connection);
 
-        return bool;
+        return true;
     }
 
     private function loadENV(): array
@@ -36,12 +36,15 @@ class ConfigurationController
             $value = trim($value);
             $value = trim($value, '"');
             $envVars[$key] = $value;
-            return $envVars;
         }
+
+        return $envVars;
     }
 
     private function createConst(array $values): bool
     {
+        define("BASE_URL", "http://localhost/buecherantiquariat");
+
         foreach ($values as $key => $value) {
             define($key, $value);
         }

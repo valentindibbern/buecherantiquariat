@@ -2,8 +2,11 @@
 
 class SearchView
 {
-    public static function render(array $contentArray): void
-    {
+    public static function render(
+        array $contentArray,
+        string $sort,
+        string $dir,
+    ): void {
         echo <<<EOT
             <!DOCTYPE html>
             <html>
@@ -15,7 +18,7 @@ class SearchView
                 <body>
         EOT;
 
-        HeaderComponent::render("Search");
+        HeaderComponent::render("Search", $sort, $dir);
 
         echo '<div class="grid-container">';
         foreach ($contentArray as $item) {

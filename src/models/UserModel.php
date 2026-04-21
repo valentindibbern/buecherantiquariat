@@ -19,14 +19,17 @@ class UserModel
     public static function getPassword(
         mysqli $connection,
         string $username,
-    ): ?string {
-        $sql = "SELECT password FROM benutzer WHERE benutzername = ?";
+    ): string {
+        $sql = "SELECT passwort FROM benutzer WHERE benutzername = ?";
         $statement = $connection->prepare($sql);
         $statement->bind_param("s", $username);
         $statement->execute();
         $result = $statement->get_result();
         $row = $result->fetch_assoc();
-        return $row["password"] ?? null;
+
+        echo $row;
+
+        return $row["password"];
     }
 }
 
