@@ -7,11 +7,23 @@ class ConfigurationController
 
     public function configure(): bool
     {
-        $envContent = $this->loadENV();
-        $envVars = $this->createENV($envContent);
-        $this->createConst($envVars);
+        $this->createConst($this->createENV($this->loadENV()));
         $this->connection = $this->createConnection();
+        $this->createSession();
         CookieModel::configureMaxPages($this->connection);
+
+        return true;
+    }
+
+    private function createSession(): bool
+    {
+        session_set_cookie_params([
+            "path" => (string) SESSION_COOKIE_PATH,
+            "secure" => (bool) SESSION_COOKIE_SECURE,
+            "httponly" => (bool) SESSION_COOKIE_HTTPONLY,
+        ]);
+
+        session_start();
 
         return true;
     }
@@ -43,7 +55,7 @@ class ConfigurationController
 
     private function createConst(array $values): bool
     {
-        define("BASE_URL", "http://localhost/buecherantiquariat");
+        // define("BASE_URL", "http://localhost/buecherantiquariat");
 
         foreach ($values as $key => $value) {
             define($key, $value);

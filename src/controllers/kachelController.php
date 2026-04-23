@@ -21,6 +21,18 @@ class KachelController
         );
     }
 
+    public function prepareInfo(): void
+    {
+        foreach ($this->info as &$book) {
+            $book["verkauft"] =
+                VerkauftEnum::from($book["verkauft"])->label() ??
+                "Verkaufstatus nicht verfügbar";
+            $book["zustand"] =
+                ZustandEnum::from($book["zustand"])->label() ??
+                "Zustand nicht verfügbar";
+        }
+    }
+
     public function render(
         int $page,
         int $maxPages,

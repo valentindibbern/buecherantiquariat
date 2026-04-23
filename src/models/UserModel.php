@@ -27,9 +27,9 @@ class UserModel
         $result = $statement->get_result();
         $row = $result->fetch_assoc();
 
-        echo $row;
+        print_r($row);
 
-        return $row["password"];
+        return $row["passwort"];
     }
 }
 

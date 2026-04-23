@@ -12,8 +12,6 @@ class LoginController
 
     public function authenticate()
     {
-        session_start();
-
         // 1. Prüfen, ob POST-Daten überhaupt ankommen
         if (empty($_POST)) {
             die("ERROR: POST-Daten sind leer!");
