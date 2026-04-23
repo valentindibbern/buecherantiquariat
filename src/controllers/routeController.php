@@ -102,8 +102,8 @@ class RouteController
         $this->addRoute("/admin", function (mysqli $innerConnection) use (
             $outerConnection,
         ) {
-            if (!$_SESSION["authenticated"]) {
-                header("Location: /login");
+            if (empty($_SESSION["authenticated"])) {
+                header("Location: " . BASE_URL . "/login");
                 exit();
             }
             $this->adminController->render();
