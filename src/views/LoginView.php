@@ -14,6 +14,11 @@ class LoginView
                 <title>Bücher Antiquariat</title>
             </head>
             <body>
+        EOT;
+
+        HeaderComponent::render("Login", null, null, HeaderlocationEnum::LOGIN);
+
+        echo <<<EOT
             <form method="post" action="">
                 <label for="username">Nutzername:</label>
                 <input type="text" id="username" name="username" placeholder="Username" required>

@@ -18,7 +18,12 @@ class SearchView
                 <body>
         EOT;
 
-        HeaderComponent::render("Search", $sort, $dir);
+        HeaderComponent::render(
+            "Search",
+            $sort,
+            $dir,
+            HeaderlocationEnum::SEARCH,
+        );
 
         echo '<div class="grid-container">';
         foreach ($contentArray as $item) {

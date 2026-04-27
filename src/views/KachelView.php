@@ -20,7 +20,7 @@ class KachelView
                 <body>
         EOT;
 
-        HeaderComponent::render("Home", $sort, $dir);
+        HeaderComponent::render("Home", $sort, $dir, HeaderlocationEnum::HOME);
 
         echo '<div class="grid-container">';
         foreach ($contentArray as $item) {

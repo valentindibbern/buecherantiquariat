@@ -28,7 +28,12 @@ class DetailView
                 <body>
         EOT;
 
-        HeaderComponent::render($titel, $sort, $dir);
+        HeaderComponent::render(
+            $titel,
+            $sort,
+            $dir,
+            HeaderlocationEnum::DETAIL,
+        );
 
         echo <<<EOT
             <div class="detail-container">
