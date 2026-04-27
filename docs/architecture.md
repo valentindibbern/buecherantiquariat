@@ -3,6 +3,7 @@
 ## Ordnerstruktur
 
 - `assets`: SQL-Dump und statische Ressourcen
+- `agents`: projektspezifische Agent-Konfigurationen fuer Code-Reviews
 - `src/controllers`: Ablaufsteuerung pro Route
 - `src/models`: Datenzugriff
 - `src/views`: Seitenrendering
@@ -19,6 +20,20 @@ Die Anwendung folgt einer einfachen MVC-aehnlichen Struktur:
 - Views und Components erzeugen HTML
 
 Die Trennung ist pragmatisch, aber nicht strikt. HTML-Erzeugung ist ueber Views und Components verteilt, und Teile des Seitenrahmens werden mehrfach aufgebaut.
+
+## Repo-native Review-Agents
+
+Im Ordner `agents/` liegen JSON-Konfigurationen fuer einen Hybrid-Review-Agenten und mehrere spezialisierte Sub-Agents. Sie dokumentieren keinen Laufzeitbestandteil der PHP-Anwendung, sondern ein projektspezifisches Review-Setup fuer Aenderungen an Routing, Architektur, SQL, Rendering, PHP-Laufzeitrisiken und Repo-Konventionen.
+
+Vorgesehene Rollen:
+
+- `hybrid-code-review`: orchestriert Reviews und konsolidiert Findings
+- `php-runtime-review`: prueft Syntax- und Laufzeitrisiken in PHP
+- `architecture-flow-review`: prueft Request-Flow und Schichtgrenzen
+- `routing-http-review`: prueft Routen, Parameter und URL-Verhalten
+- `database-sql-review`: prueft Datenbank-, Query- und Sortierlogik
+- `view-render-review`: prueft Render-Vertraege und Ausgabeebene
+- `project-constraints-review`: prueft Einhaltung der Repo-Regeln aus `AGENTS.md`
 
 ## Controller
 

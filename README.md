@@ -15,6 +15,7 @@ Fuer den lokalen Start mit XAMPP siehe `docs/setup.md`.
 - `src/components`: wiederverwendbare UI-Bausteine
 - `src/datatypes`: Enums fuer Zustands-, Verkaufs- und Kategorienwerte
 - `assets`: SQL und statische Ressourcen
+- `agents`: projektheimische Review-Agent-Konfigurationen als JSON
 - `docs`: Projektdokumentation
 - `styles.css`: globales Stylesheet
 
@@ -29,6 +30,10 @@ Die Dokumentation beschreibt den aktuellen Ist-Zustand der bestehenden Codebasis
 - `docs/setup.md`: lokales Setup unter XAMPP
 - `docs/git-history.md`: sichtbare Git-Historie des Projekts
 - `docs/branches.md`: Uebersicht ueber Branches und Abzweigungen
+
+## Review-Agents
+
+Im Ordner `agents/` liegen projektspezifische JSON-Konfigurationen fuer einen Hybrid-Code-Review-Agenten und seine spezialisierten Sub-Agents. Sie sind auf die bestehende Plain-PHP-Struktur, die bekannten Routing-/SQL-/Rendering-Gotchas und den lokalen XAMPP-Betrieb abgestimmt.
 
 ## Technischer Stand
 
