@@ -26,10 +26,17 @@ class HeaderComponent
                 $html .= LinklistComponent::element(HeaderlocationEnum::HOME);
                 break;
             case HeaderlocationEnum::LOGIN:
+                $html .= LinklistComponent::element(HeaderlocationEnum::LOGIN);
                 break;
             case HeaderlocationEnum::MINIMAL:
+                $html .= LinklistComponent::element(
+                    HeaderlocationEnum::MINIMAL,
+                );
                 break;
             case HeaderlocationEnum::SEARCH:
+                $html .= SortComponent::element($sort, $dir);
+                $html .= SearchComponent::element();
+                $html .= LinklistComponent::element(HeaderlocationEnum::SEARCH);
                 break;
             default:
                 $html .= <<<HTML
