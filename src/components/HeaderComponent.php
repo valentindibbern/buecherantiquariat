@@ -2,10 +2,10 @@
 class HeaderComponent
 {
     public static function render(
+        Headerlocationenum $headerLocation = HeaderlocationEnum::MINIMAL,
         string $title = "",
         string $sort = "title",
         string $dir = "asc",
-        HeaderlocationEnum $headerLocation = HeaderlocationEnum::MINIMAL,
     ) {
         $html = <<<HTML
         <h1 class='page-title'><a href='home'>Bücher Antiquariat</a></h1>
@@ -16,6 +16,10 @@ class HeaderComponent
 
         switch ($headerLocation) {
             case HeaderlocationEnum::ADMIN:
+                $html .= LinklistComponent::element(HeaderlocationEnum::ADMIN);
+                break;
+            case HeaderlocationEnum::CRUD:
+                $html .= LinklistComponent::element(HeaderlocationEnum::CRUD);
                 break;
             case HeaderlocationEnum::DETAIL:
                 $html .= LinklistComponent::element(HeaderlocationEnum::DETAIL);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 enum HeaderlocationEnum: string
 {
     case ADMIN = "admin";
+    case CRUD = "crud";
     case DETAIL = "detail";
     case HOME = "home";
     case LOGIN = "login";

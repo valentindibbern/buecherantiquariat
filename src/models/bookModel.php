@@ -59,7 +59,7 @@ class BookModel
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public static function getBookById(mysqli $connection, int $id): array
+    public static function getBookById(mysqli $connection, int $id): ?array
     {
         $sql = "SELECT * FROM buecher WHERE id = ?";
         $statement = $connection->prepare($sql);
@@ -84,6 +84,15 @@ class BookModel
         $statement->bind_param("sss", $query, $query, $query);
         $statement->execute();
 
+        $result = $statement->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public static function getAllBooks(mysqli $connection): array
+    {
+        $sql = "SELECT * FROM buecher";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
         $result = $statement->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }

@@ -4,24 +4,28 @@ declare(strict_types=1);
 class RouteController
 {
     private array $routes = [];
+
+    private AdminController $adminController;
+    private CRUDController $crudController;
     private DetailController $detailController;
     private KachelController $kachelController;
-    private SearchController $searchController;
     private LoginController $loginController;
-    private AdminController $adminController;
+    private SearchController $searchController;
 
     public function __construct(
+        AdminController $adminController,
+        CRUDController $crudController,
         DetailController $detailController,
         KachelController $kachelController,
-        SearchController $searchController,
         LoginController $loginController,
-        AdminController $adminController,
+        SearchController $searchController,
     ) {
+        $this->adminController = $adminController;
+        $this->crudController = $crudController;
         $this->detailController = $detailController;
         $this->kachelController = $kachelController;
-        $this->searchController = $searchController;
         $this->loginController = $loginController;
-        $this->adminController = $adminController;
+        $this->searchController = $searchController;
     }
 
     public function addRoute(string $path, Closure $handler): void
@@ -70,27 +74,21 @@ class RouteController
                 (string) ($_GET["dir"] ?? "asc"),
             );
         });
-        $this->addRoute("/detail", function (mysqli $innerConnection) use (
-            $outerConnection,
-        ) {
+        $this->addRoute("/detail", function () {
             $this->detailController->render(
                 (int) ($_GET["id"] ?? 1),
                 (string) ($_GET["sort"] ?? "title"),
                 (string) ($_GET["dir"] ?? "asc"),
             );
         });
-        $this->addRoute("/search", function (mysqli $innerConnection) use (
-            $outerConnection,
-        ) {
+        $this->addRoute("/search", function () {
             $this->searchController->render(
                 (string) ($_GET["search"] ?? ""),
                 (string) ($_GET["sort"] ?? "title"),
                 (string) ($_GET["dir"] ?? "asc"),
             );
         });
-        $this->addRoute("/login", function (mysqli $innerConnection) use (
-            $outerConnection,
-        ) {
+        $this->addRoute("/login", function () {
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $this->loginController->authenticate();
             } elseif ($_SERVER["REQUEST_METHOD"] === "GET") {
@@ -99,14 +97,19 @@ class RouteController
                 echo "Problem";
             }
         });
-        $this->addRoute("/admin", function (mysqli $innerConnection) use (
-            $outerConnection,
-        ) {
+        $this->addRoute("/admin", function () {
             if (empty($_SESSION["authenticated"])) {
                 header("Location: " . BASE_URL . "/login");
                 exit();
             }
             $this->adminController->render();
+        });
+        $this->addRoute("/crud", function () {
+            if (empty($_SESSION["authenticated"])) {
+                header("Location: " . BASE_URL . "/login");
+                exit();
+            }
+            $this->crudController->render((int) ($_GET["id"] ?? 0));
         });
     }
 }

@@ -19,10 +19,10 @@ class SearchView
         EOT;
 
         HeaderComponent::render(
+            HeaderlocationEnum::SEARCH,
             "Search",
             $sort,
             $dir,
-            HeaderlocationEnum::SEARCH,
         );
 
         echo '<div class="grid-container">';

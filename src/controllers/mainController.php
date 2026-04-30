@@ -3,38 +3,46 @@ declare(strict_types=1);
 
 class MainController
 {
+    private AdminController $adminController;
+    private CRUDController $crudController;
     private ConfigurationController $configurationController;
     private DetailController $detailController;
     private KachelController $kachelController;
+    private LoginController $loginController;
     private RouteController $routeController;
     private SearchController $searchController;
-    private LoginController $loginController;
-    private AdminController $adminController;
 
     public function __construct()
     {
         $this->configurationController = new ConfigurationController();
         $this->configurationController->configure();
 
+        $this->adminController = new AdminController(
+            $this->configurationController->getConnection(),
+        );
+        $this->crudController = new CrudController(
+            $this->configurationController->getConnection(),
+        );
         $this->detailController = new DetailController(
             $this->configurationController->getConnection(),
         );
         $this->kachelController = new KachelController(
             $this->configurationController->getConnection(),
         );
-        $this->searchController = new SearchController(
-            $this->configurationController->getConnection(),
-        );
         $this->loginController = new LoginController(
             $this->configurationController->getConnection(),
         );
-        $this->adminController = new AdminController();
+        $this->searchController = new SearchController(
+            $this->configurationController->getConnection(),
+        );
+
         $this->routeController = new RouteController(
+            $this->adminController,
+            $this->crudController,
             $this->detailController,
             $this->kachelController,
-            $this->searchController,
             $this->loginController,
-            $this->adminController,
+            $this->searchController,
         );
 
         $this->routeController->configureRoutes(

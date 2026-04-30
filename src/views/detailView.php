@@ -29,10 +29,10 @@ class DetailView
         EOT;
 
         HeaderComponent::render(
+            HeaderlocationEnum::DETAIL,
             $titel,
             $sort,
             $dir,
-            HeaderlocationEnum::DETAIL,
         );
 
         echo <<<EOT
