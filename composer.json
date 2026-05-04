@@ -1,0 +1,21 @@
+{
+    "name": "valentindibbern/buecherantiquariat",
+    "description": "Eine Website für ein Bücherantiquariat.",
+    "type": "project",
+    "require": {
+        "php": ">=8.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Valentindibbern\\Buecherantiquariat\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Valentin Dibbern",
+            "email": "valentindibbern@stud.edubs.ch"
+        }
+    ],
+    "minimum-stability": "stable"
+}
