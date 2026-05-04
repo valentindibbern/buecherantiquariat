@@ -19,10 +19,21 @@
 - Main routes are `/`, `/home`, `/detail?id=...`, and `/search?search=...`.
 - `src/models/BookModel.php` owns the current queries; pagination is 18 rows per page.
 
+## Git Workflow For Agents
+
+- Start each coding task with `git status --short --branch` so you know whether the worktree is clean or already contains user changes.
+- For major code changes, ask at the start of the task whether you should create a branch and which branch it should be based on, unless the user already gave exact branch instructions for that task.
+- Treat a task as major if it spans multiple layers, changes routing or architecture, touches setup or database assumptions, or is expected to take more than one commit to explain cleanly.
+- If the task is major and no branch decision was provided, do not guess a base branch. Ask first.
+- For non-trivial code changes, prefer a two-commit flow: one checkpoint commit before your edits and one commit after your edits are complete.
+- Only create the pre-change checkpoint commit if the worktree state is safe to commit as-is. If unrelated or unexplained changes are already present, do not auto-commit them; ask the user how to handle that state or continue without the checkpoint while preserving those changes.
+- Keep your own changes in separate commits. Do not fold unrelated user changes into your commit just to satisfy the workflow.
+- Use clear commit messages that distinguish the checkpoint from the actual implementation, for example `chore: checkpoint before search sorting change` and `fix: validate search sorting inputs`.
+
 ## Verification
 
 - Single-file syntax check: `php -l path\to\File.php`
-- Repo-wide syntax check: `Get-ChildItem -Recurse -Filter *.php | ForEach-Object { php -l $_.FullName }`
+- Repo-wide syntax check: `Get-ChildItem -Recurse -Filter *.php | ForEach-Object { php -l "$($_.FullName)" }`
 - For request-flow or rendering changes, also smoke-test:
   - `http://localhost/buecherantiquariat/`
   - `http://localhost/buecherantiquariat/home`
@@ -40,3 +51,4 @@
 ## Docs
 
 - If you change setup assumptions, routing behavior, database expectations, or architecture, update the matching file in `docs/` instead of adding parallel notes.
+- If you are instructed to create suggestions, write each suggestion down as a Markdown file under `docs/suggesstions/`.

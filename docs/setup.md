@@ -6,7 +6,7 @@ Die Anwendung ist auf eine lokale XAMPP-Umgebung mit Apache und MySQL bzw. Maria
 
 Erwarteter Projektpfad:
 
-- `C:\xampp\htdocs\buecherantiquariat`
+- `<XAMPP_DIR>\htdocs\buecherantiquariat`
 
 Erwartete URL:
 
@@ -18,9 +18,45 @@ Erwartete URL:
 - MySQL oder MariaDB
 - PHP mit `mysqli`
 
+## PHP-Version
+
+Die Projektlaufzeit sollte sich an der PHP-Version der lokalen XAMPP-Installation orientieren, nicht an einer beliebigen `php.exe` auf dem `PATH`.
+
+Die Anwendung verwendet in `src/datatypes/*.php` native PHP-Enums. Damit ist PHP `8.1` die fachliche Mindestversion.
+
+Der Einstiegspunkt `index.php` bricht den Request deshalb mit HTTP `500` ab, wenn eine niedrigere PHP-Version als `8.1.0` verwendet wird.
+
+Stand dieser Projektdokumentation: `2026-05-04`.
+
+Unterstuetzter Bereich fuer dieses Projekt:
+
+- mindestens PHP `8.1`
+- lokales Zielsetup aktuell: PHP `8.2`
+
+Die XAMPP-CLI liegt typischerweise unter:
+
+- `<XAMPP_DIR>\php\php.exe`
+- PHP `8.2.12`
+
+Damit ist PHP `8.2` weiterhin die naheliegende Zielversion fuer lokale XAMPP-Windows-Setups, waehrend PHP `8.1` noch innerhalb des dokumentierten Mindestbereichs liegt.
+
+Die PHP-Version wird im Repo nicht mehr ueber geteilte IDE-Dateien festgelegt. Die fachliche Untergrenze bleibt in `index.php` verankert, und die lokale Zielversion fuer Checks wird ueber `tools/check-php-version.php` pruefbar gemacht.
+
+Fuer Syntaxpruefungen ist deshalb nach Moeglichkeit die XAMPP-PHP-Binaerdatei zu verwenden:
+
+- `<XAMPP_DIR>\php\php.exe tools\check-php-version.php`
+- `<XAMPP_DIR>\php\php.exe -l path\to\File.php`
+- `Get-ChildItem -Recurse -Filter *.php | ForEach-Object { & <XAMPP_DIR>\php\php.exe -l $_.FullName }`
+
+`<XAMPP_DIR>` ist das lokale Installationsverzeichnis von XAMPP. Wenn unklar ist, wo XAMPP installiert wurde, helfen meist diese Wege:
+
+- im XAMPP Control Panel den Installationsordner oder die Pfade der Module pruefen
+- im Datei-Explorer nach `xampp-control.exe` oder nach einem Ordner `xampp` suchen
+- in einer Eingabeaufforderung `where php` ausfuehren und pruefen, ob die XAMPP-PHP dabei ist
+
 ## Apache
 
-1. Lege das Projekt unter `C:\xampp\htdocs\buecherantiquariat` ab.
+1. Lege das Projekt unter `<XAMPP_DIR>\htdocs\buecherantiquariat` ab.
 2. Starte Apache ueber das XAMPP Control Panel.
 3. Stelle sicher, dass `mod_rewrite` aktiv ist.
 4. Die Datei `.htaccess` rewritet Anfragen auf `index.php`, solange keine echte Datei oder kein echtes Verzeichnis existiert.

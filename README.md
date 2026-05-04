@@ -6,6 +6,10 @@ Kleine PHP-Anwendung fuer ein Antiquariat auf Basis einer einfachen MVC-aehnlich
 
 Fuer den lokalen Start mit XAMPP siehe `docs/setup.md`.
 
+Die Anwendung benoetigt mindestens PHP `8.1`; das aktuell dokumentierte lokale Zielsetup unter XAMPP liegt bei PHP `8.2`.
+
+Fuer lokale Pruefungen ist die PHP-Version im Repo ueber `tools/check-php-version.php` nachvollziehbar, statt ueber geteilte IDE-Metadaten.
+
 ## Projektstruktur
 
 - `index.php`: Einstiegspunkt und Autoloading
@@ -30,6 +34,8 @@ Die Dokumentation beschreibt den aktuellen Ist-Zustand der bestehenden Codebasis
 - `docs/setup.md`: lokales Setup unter XAMPP
 - `docs/git-history.md`: sichtbare Git-Historie des Projekts
 - `docs/branches.md`: Uebersicht ueber Branches und Abzweigungen
+- `docs/change-workflow.md`: leichter Ablauf von Suggestion zu Proposal, Branch und Merge
+- `docs/learning/README.md`: Lernbereich fuer erklaerende Markdown-Notizen
 
 ## Review-Agents
 
