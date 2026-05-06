@@ -1,9 +1,13 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Models;
+
+use mysqli;
+
 class CookieModel
 {
-    private static $maxPagesName = "__Secure-maxPages";
+    private static string $maxPagesName = "__Secure-maxPages";
 
     public static function configureMaxPages(mysqli $connection): void
     {

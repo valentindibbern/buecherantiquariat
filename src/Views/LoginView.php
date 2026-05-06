@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Views;
+
 class LoginView
 {
     public static function render(): void
     {
         echo <<<EOT
             <!DOCTYPE html>
-            <html>
+            <html lang="de">
             <head>
                 <meta charset="UTF-8">
                 <link rel="stylesheet" href="styles.css">
@@ -16,7 +18,7 @@ class LoginView
             <body>
         EOT;
 
-        HeaderComponent::render(HeaderlocationEnum::LOGIN, "Login");
+        \App\Components\HeaderComponent::render(\App\Datatypes\HeaderlocationEnum::LOGIN, "Login");
 
         echo <<<EOT
             <form method="post" action="">
@@ -29,4 +31,3 @@ class LoginView
         EOT;
     }
 }
-?>

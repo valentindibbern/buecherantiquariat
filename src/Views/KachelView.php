@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+namespace App\Views;
 
 class KachelView
 {
@@ -8,10 +11,11 @@ class KachelView
         int $maxPages,
         string $sort,
         string $dir,
-    ) {
+    ): void
+    {
         echo <<<EOT
             <!DOCTYPE html>
-            <html>
+            <html lang="">
                 <head>
                     <meta charset="UTF-8">
                     <link rel="stylesheet" href="styles.css">
@@ -20,11 +24,11 @@ class KachelView
                 <body>
         EOT;
 
-        HeaderComponent::render(HeaderlocationEnum::HOME, "Home", $sort, $dir);
+        \App\Components\HeaderComponent::render(\App\Datatypes\HeaderlocationEnum::HOME, "Home", $sort, $dir);
 
         echo '<div class="grid-container">';
         foreach ($contentArray as $item) {
-            KachelComponent::render(
+            \App\Components\KachelComponent::render(
                 $item["id"],
                 $item["foto"],
                 $item["Title"],
@@ -34,9 +38,9 @@ class KachelView
         }
         echo "</div>";
 
-        PaginatorComponent::render($currentPage, $maxPages, $sort, $dir);
+        \App\Components\PaginatorComponent::render($currentPage, $maxPages, $sort, $dir);
 
-        FooterComponent::render();
+        \App\Components\FooterComponent::render();
 
         echo <<<EOT
                 </body>
@@ -44,4 +48,3 @@ class KachelView
         EOT;
     }
 }
-?>

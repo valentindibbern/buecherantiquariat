@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Datatypes;
+
 enum KategorieEnum: int
 {
     case BIBELN = 1;
@@ -22,7 +24,7 @@ enum KategorieEnum: int
     {
         return match ($this) {
             self::BIBELN
-                => "Alte Drucke, Bibeln, Klassische Autoren in den Originalsprachen",
+            => "Alte Drucke, Bibeln, Klassische Autoren in den Originalsprachen",
             self::GEOGRAPHIE => "Geographie und Reisen",
             self::GESCHICHTSWISSENSAFTEN => "Geschichtswissenschaften",
             self::NATURWISSENSCHAFTEN => "Naturwissenschaften",
@@ -39,5 +41,3 @@ enum KategorieEnum: int
         };
     }
 }
-
-?>

@@ -1,14 +1,17 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Components;
+
 class PaginatorComponent
 {
     public static function render(
-        int $currentPage,
-        int $totalPages,
+        int    $currentPage,
+        int    $totalPages,
         string $sort,
         string $dir,
-    ) {
+    ): void
+    {
         $previousPage = $currentPage - 1;
         $nextPage = $currentPage + 1;
 
@@ -85,4 +88,3 @@ class PaginatorComponent
         }
     }
 }
-?>

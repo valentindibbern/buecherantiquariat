@@ -1,24 +1,28 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Controllers;
+use Closure;
+use mysqli;
+
 class RouteController
 {
     private array $routes = [];
 
-    private AdminController $adminController;
-    private CRUDController $crudController;
-    private DetailController $detailController;
-    private KachelController $kachelController;
-    private LoginController $loginController;
-    private SearchController $searchController;
+    private \App\Controllers\AdminController $adminController;
+    private \App\Controllers\CRUDController $crudController;
+    private \App\Controllers\DetailController $detailController;
+    private \App\Controllers\KachelController $kachelController;
+    private \App\Controllers\LoginController $loginController;
+    private \App\Controllers\SearchController $searchController;
 
     public function __construct(
-        AdminController $adminController,
-        CRUDController $crudController,
-        DetailController $detailController,
-        KachelController $kachelController,
-        LoginController $loginController,
-        SearchController $searchController,
+        \App\Controllers\AdminController $adminController,
+        \App\Controllers\CRUDController $crudController,
+        \App\Controllers\DetailController $detailController,
+        \App\Controllers\KachelController $kachelController,
+        \App\Controllers\LoginController $loginController,
+        \App\Controllers\SearchController $searchController,
     ) {
         $this->adminController = $adminController;
         $this->crudController = $crudController;
@@ -59,7 +63,7 @@ class RouteController
         ) {
             $this->kachelController->render(
                 (int) ($_GET["page"] ?? 1),
-                (int) CookieModel::getMaxPages($innerConnection),
+                (int) \App\Models\CookieModel::getMaxPages($innerConnection),
                 (string) ($_GET["sort"] ?? "title"),
                 (string) ($_GET["dir"] ?? "asc"),
             );
@@ -69,7 +73,7 @@ class RouteController
         ) {
             $this->kachelController->render(
                 (int) ($_GET["page"] ?? 1),
-                (int) CookieModel::getMaxPages($innerConnection),
+                (int) \App\Models\CookieModel::getMaxPages($innerConnection),
                 (string) ($_GET["sort"] ?? "title"),
                 (string) ($_GET["dir"] ?? "asc"),
             );
@@ -110,6 +114,9 @@ class RouteController
                 exit();
             }
             $this->crudController->render((int) ($_GET["id"] ?? 0));
+        });
+        $this->addRoute("/info", function () {
+            \App\Views\PHPInfoView::render();
         });
     }
 }

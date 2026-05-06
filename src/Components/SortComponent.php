@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Components;
+
 class SortComponent
 {
     public static function element(string $sort, string $dir): string
@@ -29,5 +31,3 @@ class SortComponent
         HTML;
     }
 }
-
-?>

@@ -1,11 +1,13 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Components;
 class LinklistComponent
 {
     public static function element(
-        HeaderlocationEnum $headerLocation = HeaderlocationEnum::MINIMAL,
-    ): string {
+        \App\Datatypes\HeaderlocationEnum $headerLocation = \App\Datatypes\HeaderlocationEnum::MINIMAL,
+    ): string
+    {
         $html = "";
 
         $adminLink = '<a href="admin">Admin</a>';
@@ -14,30 +16,24 @@ class LinklistComponent
         $logoutLink = '<a href="logout">Logout</a>';
 
         switch ($headerLocation) {
-            case HeaderlocationEnum::ADMIN:
+            case \App\Datatypes\HeaderlocationEnum::ADMIN:
                 $html .= $logoutLink;
                 break;
-            case HeaderlocationEnum::CRUD:
+            case \App\Datatypes\HeaderlocationEnum::CRUD:
                 $html .= $adminLink;
                 $html .= $logoutLink;
                 break;
-            case HeaderlocationEnum::DETAIL:
+            case \App\Datatypes\HeaderlocationEnum::MINIMAL:
+            case \App\Datatypes\HeaderlocationEnum::SEARCH:
+            case \App\Datatypes\HeaderlocationEnum::DETAIL:
                 $html .= $homeLink;
                 $html .= $logginLink;
                 break;
-            case HeaderlocationEnum::HOME:
+            case \App\Datatypes\HeaderlocationEnum::HOME:
                 $html .= $logginLink;
                 break;
-            case HeaderlocationEnum::LOGIN:
+            case \App\Datatypes\HeaderlocationEnum::LOGIN:
                 $html .= $homeLink;
-                break;
-            case HeaderlocationEnum::MINIMAL:
-                $html .= $homeLink;
-                $html .= $logginLink;
-                break;
-            case HeaderlocationEnum::SEARCH:
-                $html .= $homeLink;
-                $html .= $logginLink;
                 break;
             default:
                 $html .= <<<HTML
@@ -49,4 +45,3 @@ class LinklistComponent
         return $html;
     }
 }
-?>

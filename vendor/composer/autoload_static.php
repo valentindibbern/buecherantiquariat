@@ -7,20 +7,52 @@ namespace Composer\Autoload;
 class ComposerStaticInitd751713988987e9331980363e24189ce
 {
     public static $prefixLengthsPsr4 = array (
-        'V' =>
+        'A' =>
         array (
-            'Valentindibbern\\Buecherantiquariat\\' => 35,
+            'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Valentindibbern\\Buecherantiquariat\\' =>
+        'App\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
     public static $classMap = array (
+        'App\\Components\\FooterComponent' => __DIR__ . '/../..' . '/src/Components/FooterComponent.php',
+        'App\\Components\\HeaderComponent' => __DIR__ . '/../..' . '/src/Components/HeaderComponent.php',
+        'App\\Components\\KachelComponent' => __DIR__ . '/../..' . '/src/Components/KachelComponent.php',
+        'App\\Components\\LinklistComponent' => __DIR__ . '/../..' . '/src/Components/LinklistComponent.php',
+        'App\\Components\\PaginatorComponent' => __DIR__ . '/../..' . '/src/Components/PaginatorComponent.php',
+        'App\\Components\\PopupComponent' => __DIR__ . '/../..' . '/src/Components/PopupComponent.php',
+        'App\\Components\\SearchComponent' => __DIR__ . '/../..' . '/src/Components/SearchComponent.php',
+        'App\\Components\\SortComponent' => __DIR__ . '/../..' . '/src/Components/SortComponent.php',
+        'App\\Controllers\\AdminController' => __DIR__ . '/../..' . '/src/Controllers/AdminController.php',
+        'App\\Controllers\\CRUDController' => __DIR__ . '/../..' . '/src/Controllers/CRUDController.php',
+        'App\\Controllers\\ConfigurationController' => __DIR__ . '/../..' . '/src/Controllers/ConfigurationController.php',
+        'App\\Controllers\\DetailController' => __DIR__ . '/../..' . '/src/Controllers/DetailController.php',
+        'App\\Controllers\\KachelController' => __DIR__ . '/../..' . '/src/Controllers/KachelController.php',
+        'App\\Controllers\\LoginController' => __DIR__ . '/../..' . '/src/Controllers/LoginController.php',
+        'App\\Controllers\\MainController' => __DIR__ . '/../..' . '/src/Controllers/MainController.php',
+        'App\\Controllers\\RouteController' => __DIR__ . '/../..' . '/src/Controllers/RouteController.php',
+        'App\\Controllers\\SearchController' => __DIR__ . '/../..' . '/src/Controllers/SearchController.php',
+        'App\\Datatypes\\HeaderlocationEnum' => __DIR__ . '/../..' . '/src/Datatypes/HeaderlocationEnum.php',
+        'App\\Datatypes\\KategorieEnum' => __DIR__ . '/../..' . '/src/Datatypes/KategorieEnum.php',
+        'App\\Datatypes\\VerkauftEnum' => __DIR__ . '/../..' . '/src/Datatypes/VerkauftEnum.php',
+        'App\\Datatypes\\ZustandEnum' => __DIR__ . '/../..' . '/src/Datatypes/ZustandEnum.php',
+        'App\\Models\\BookModel' => __DIR__ . '/../..' . '/src/Models/BookModel.php',
+        'App\\Models\\CookieModel' => __DIR__ . '/../..' . '/src/Models/CookieModel.php',
+        'App\\Models\\FileModel' => __DIR__ . '/../..' . '/src/Models/FileModel.php',
+        'App\\Models\\UserModel' => __DIR__ . '/../..' . '/src/Models/UserModel.php',
+        'App\\Views\\AdminView' => __DIR__ . '/../..' . '/src/Views/AdminView.php',
+        'App\\Views\\CRUDView' => __DIR__ . '/../..' . '/src/Views/CRUDView.php',
+        'App\\Views\\DetailView' => __DIR__ . '/../..' . '/src/Views/DetailView.php',
+        'App\\Views\\KachelView' => __DIR__ . '/../..' . '/src/Views/KachelView.php',
+        'App\\Views\\LoginView' => __DIR__ . '/../..' . '/src/Views/LoginView.php',
+        'App\\Views\\PHPInfoView' => __DIR__ . '/../..' . '/src/Views/PHPInfoView.php',
+        'App\\Views\\SearchView' => __DIR__ . '/../..' . '/src/Views/SearchView.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

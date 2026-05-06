@@ -3,12 +3,13 @@
     "description": "Eine Website für ein Bücherantiquariat.",
     "type": "project",
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "ext-mysqli": "*"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Valentindibbern\\Buecherantiquariat\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [

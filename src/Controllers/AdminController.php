@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Controllers;
+
+use mysqli;
+
 class AdminController
 {
     private mysqli $connection;
@@ -12,9 +16,7 @@ class AdminController
 
     public function render(): void
     {
-        $books = BookModel::getAllBooks($this->connection);
-        AdminView::render($books);
+        $books = \App\Models\BookModel::getAllBooks($this->connection);
+        \App\Views\AdminView::render($books);
     }
 }
-
-?>

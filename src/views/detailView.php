@@ -1,4 +1,8 @@
 <?php
+declare(strict_types=1);
+
+namespace App\Views;
+
 class DetailView
 {
     public static function render(array $book, string $sort, string $dir): void
@@ -8,10 +12,10 @@ class DetailView
         $description = $book["Beschreibung"] ?? "Beschreibung nicht verfügbar";
         $author = $book["autor"] ?? "Autor nicht verfügbar";
         $zustand =
-            ZustandEnum::from($book["zustand"])->label() ??
+            \App\Datatypes\ZustandEnum::from($book["zustand"])->label() ??
             "Zustand nicht verfügbar";
         $verkauft =
-            VerkauftEnum::from($book["verkauft"])->label() ??
+            \App\Datatypes\VerkauftEnum::from($book["verkauft"])->label() ??
             "Verkaufstatus nicht verfügbar";
         $katalog = $book["katalog"] ?? "Katalog nicht verfügbar";
         $nummer = $book["nummer"] ?? "Nummer nicht verfügbar";
@@ -19,7 +23,7 @@ class DetailView
 
         echo <<<EOT
             <!DOCTYPE html>
-            <html>
+            <html lang="de">
                 <head>
                     <meta charset="UTF-8">
                     <link rel="stylesheet" href="styles.css">
@@ -28,8 +32,8 @@ class DetailView
                 <body>
         EOT;
 
-        HeaderComponent::render(
-            HeaderlocationEnum::DETAIL,
+        \App\Components\HeaderComponent::render(
+            \App\Datatypes\HeaderlocationEnum::DETAIL,
             $titel,
             $sort,
             $dir,
@@ -37,7 +41,7 @@ class DetailView
 
         echo <<<EOT
             <div class="detail-container">
-                <img src="$image" class="detail-image">
+                <img src="$image" class="detail-image" alt="Image of Book">
                 <p class="detail-description">$description</p>
                 <ul class="detail-list">
                     <li class="detail-autor">Autor: $author</li>
@@ -50,7 +54,7 @@ class DetailView
             </div>
         EOT;
 
-        FooterComponent::render();
+        \App\Components\FooterComponent::render();
 
         echo <<<EOT
                 </body>

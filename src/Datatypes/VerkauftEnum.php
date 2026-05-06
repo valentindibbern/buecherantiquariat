@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Datatypes;
 enum VerkauftEnum: int
 {
     case JA = 1;

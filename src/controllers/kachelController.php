@@ -1,9 +1,12 @@
 <?php
 
+namespace App\Controllers;
+use mysqli;
+
 class KachelController
 {
-    private $connection;
-    private $info;
+    private mysqli $connection;
+    private array $info;
 
     public function __construct($connection)
     {
@@ -13,7 +16,7 @@ class KachelController
 
     public function update(int $page, string $sort, string $dir): void
     {
-        $this->info = BookModel::getBooksByPage(
+        $this->info = \App\Models\BookModel::getBooksByPage(
             $this->connection,
             $page,
             $sort,
@@ -25,10 +28,10 @@ class KachelController
     {
         foreach ($this->info as &$book) {
             $book["verkauft"] =
-                VerkauftEnum::from($book["verkauft"])->label() ??
+                \App\Datatypes\VerkauftEnum::from($book["verkauft"])->label() ??
                 "Verkaufstatus nicht verfügbar";
             $book["zustand"] =
-                ZustandEnum::from($book["zustand"])->label() ??
+                \App\Datatypes\ZustandEnum::from($book["zustand"])->label() ??
                 "Zustand nicht verfügbar";
         }
     }
@@ -40,6 +43,6 @@ class KachelController
         string $dir,
     ): void {
         $this->update($page, $sort, $dir);
-        KachelView::render($this->info, $page, $maxPages, $sort, $dir);
+        \App\Views\KachelView::render($this->info, $page, $maxPages, $sort, $dir);
     }
 }

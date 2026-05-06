@@ -1,10 +1,13 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Controllers;
+use mysqli;
+
 class DetailController
 {
-    private $conn;
-    private $info;
+    private mysqli $conn;
+    private array $info;
 
     public function __construct($conn)
     {
@@ -14,12 +17,12 @@ class DetailController
 
     public function getBook(int $id): void
     {
-        $this->info = BookModel::getBookById($this->conn, $id);
+        $this->info = \App\Models\BookModel::getBookById($this->conn, $id);
     }
 
     public function render(int $id, string $sort, string $dir): void
     {
         $this->getBook($id);
-        DetailView::render($this->info, $sort, $dir);
+        \App\Views\DetailView::render($this->info, $sort, $dir);
     }
 }

@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Models;
+use mysqli;
+
 class BookModel
 {
     public static function getTotalPages(mysqli $connection): int

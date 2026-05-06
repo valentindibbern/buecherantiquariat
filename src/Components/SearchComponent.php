@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Components;
+
 class SearchComponent
 {
     public static function element(): string
@@ -15,4 +17,3 @@ class SearchComponent
         HTML;
     }
 }
-?>

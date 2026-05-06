@@ -1,13 +1,14 @@
 <?php
+namespace App\Components;
 class KachelComponent
 {
-    public static function render($id, $img, $name, $autor, $zustand)
+    public static function render($id, $img, $name, $autor, $zustand): void
     {
         $img = $img ?? "Bild nicht verfügbar";
         $name = $name ?? "Name nicht verfügbar";
         $autor = $autor ?? "Autor nicht verfügbar";
         $zustand =
-            ZustandEnum::from($zustand)->label() ?? "Zustand nicht verfügbar";
+            \App\Datatypes\ZustandEnum::from($zustand)->label() ?? "Zustand nicht verfügbar";
 
         echo <<<EOT
             <a href="detail?id=$id">
@@ -23,4 +24,3 @@ class KachelComponent
         EOT;
     }
 }
-?>

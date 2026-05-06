@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Datatypes;
+
 enum HeaderlocationEnum: string
 {
     case ADMIN = "admin";
@@ -11,5 +13,3 @@ enum HeaderlocationEnum: string
     case MINIMAL = "minimal";
     case SEARCH = "search";
 }
-
-?>

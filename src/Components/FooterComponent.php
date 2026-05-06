@@ -1,7 +1,9 @@
 <?php
+namespace App\Components;
+
 class FooterComponent
 {
-    public static function render()
+    public static function render(): void
     {
         echo <<<EOT
             <footer class="footer">
@@ -12,4 +14,3 @@ class FooterComponent
         EOT;
     }
 }
-?>

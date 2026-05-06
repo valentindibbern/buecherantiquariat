@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Controllers;
+
+use JetBrains\PhpStorm\NoReturn;
+use mysqli;
+
 class LoginController
 {
     private mysqli $connection;
@@ -10,7 +15,8 @@ class LoginController
         $this->connection = $connection;
     }
 
-    public function authenticate()
+    #[NoReturn]
+    public function authenticate(): void
     {
         // 1. Prüfen, ob POST-Daten überhaupt ankommen
         if (empty($_POST)) {
@@ -26,10 +32,10 @@ class LoginController
         $password = $_POST["password"];
 
         if (
-            UserModel::userExists($this->connection, $username) &&
+            \App\Models\UserModel::userExists($this->connection, $username) &&
             password_verify(
                 $password,
-                UserModel::getPassword($this->connection, $username),
+                \App\Models\UserModel::getPassword($this->connection, $username),
             )
         ) {
             $_SESSION["username"] = $username;
@@ -43,9 +49,8 @@ class LoginController
         exit();
     }
 
-    public function render()
+    public function render(): void
     {
-        LoginView::render();
+        \App\Views\LoginView::render();
     }
 }
-?>

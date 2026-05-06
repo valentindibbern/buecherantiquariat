@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Views;
+
 class CRUDView
 {
     public static function render(array $content): void
@@ -19,7 +21,7 @@ class CRUDView
         $zustand = $content["zustand"] ?? "";
 
         $html = <<<HTML
-        <html>
+        <html lang="de">
             <head>
                 <meta charset="UTF-8">
                 <link rel="stylesheet" href="styles.css">
@@ -28,7 +30,7 @@ class CRUDView
             <body>
         HTML;
 
-        HeaderComponent::render(HeaderlocationEnum::ADMIN, "Admin");
+        \App\Components\HeaderComponent::render(\App\Datatypes\HeaderlocationEnum::ADMIN, "Admin");
 
         $html .= <<<HTML
         <form>
@@ -88,5 +90,3 @@ class CRUDView
         echo $html;
     }
 }
-
-?>

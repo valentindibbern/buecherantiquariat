@@ -1,21 +1,23 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Controllers;
+
+use mysqli;
+
 class ConfigurationController
 {
     private mysqli $connection;
 
-    public function configure(): bool
+    public function configure(): void
     {
         $this->createConst($this->createENV($this->loadENV()));
         $this->connection = $this->createConnection();
         $this->createSession();
-        CookieModel::configureMaxPages($this->connection);
-
-        return true;
+        \App\Models\CookieModel::configureMaxPages($this->connection);
     }
 
-    private function createSession(): bool
+    private function createSession(): void
     {
         session_set_cookie_params([
             "path" => (string) SESSION_COOKIE_PATH,
@@ -24,13 +26,11 @@ class ConfigurationController
         ]);
 
         session_start();
-
-        return true;
     }
 
     private function loadENV(): array
     {
-        return FileModel::getFileContent(__DIR__ . "/../../.env.local");
+        return \App\Models\FileModel::getFileContent(__DIR__ . "/../../.env.local");
     }
 
     private function createENV(array $envContent): array
@@ -53,18 +53,14 @@ class ConfigurationController
         return $envVars;
     }
 
-    private function createConst(array $values): bool
+    private function createConst(array $values): void
     {
-        // define("BASE_URL", "http://localhost/buecherantiquariat");
-
         foreach ($values as $key => $value) {
             define($key, $value);
         }
-
-        return true;
     }
 
-    private function createConnection(): mysqli
+    private function createConnection(): \mysqli
     {
         $connection = new mysqli(
             (string) DB_HOST,
@@ -91,5 +87,3 @@ class ConfigurationController
         return $this->connection;
     }
 }
-
-?>

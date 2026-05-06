@@ -1,13 +1,15 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Views;
+
 class AdminView
 {
     public static function render(array $contentArray): void
     {
         echo <<<EOT
         <!DOCTYPE html>
-        <html>
+        <html lang="de">
             <head>
                 <meta charset="UTF-8">
                 <link rel="stylesheet" href="styles.css">
@@ -16,7 +18,7 @@ class AdminView
             <body>
         EOT;
 
-        HeaderComponent::render(HeaderlocationEnum::ADMIN, "Admin");
+        \App\Components\HeaderComponent::render(\App\Datatypes\HeaderlocationEnum::ADMIN, "Admin");
 
         $html = <<<HTML
         <div class="table-container">
@@ -70,5 +72,3 @@ class AdminView
         echo $html;
     }
 }
-
-?>

@@ -1,42 +1,43 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Controllers;
 class MainController
 {
-    private AdminController $adminController;
-    private CRUDController $crudController;
-    private ConfigurationController $configurationController;
-    private DetailController $detailController;
-    private KachelController $kachelController;
-    private LoginController $loginController;
-    private RouteController $routeController;
-    private SearchController $searchController;
+    private \App\Controllers\AdminController $adminController;
+    private \App\Controllers\CRUDController $crudController;
+    private \App\Controllers\ConfigurationController $configurationController;
+    private \App\Controllers\DetailController $detailController;
+    private \App\Controllers\KachelController $kachelController;
+    private \App\Controllers\LoginController $loginController;
+    private \App\Controllers\RouteController $routeController;
+    private \App\Controllers\SearchController $searchController;
 
     public function __construct()
     {
-        $this->configurationController = new ConfigurationController();
+        $this->configurationController = new \App\Controllers\ConfigurationController();
         $this->configurationController->configure();
 
-        $this->adminController = new AdminController(
+        $this->adminController = new \App\Controllers\AdminController(
             $this->configurationController->getConnection(),
         );
-        $this->crudController = new CrudController(
+        $this->crudController = new \App\Controllers\CrudController(
             $this->configurationController->getConnection(),
         );
-        $this->detailController = new DetailController(
+        $this->detailController = new \App\Controllers\DetailController(
             $this->configurationController->getConnection(),
         );
-        $this->kachelController = new KachelController(
+        $this->kachelController = new \App\Controllers\KachelController(
             $this->configurationController->getConnection(),
         );
-        $this->loginController = new LoginController(
+        $this->loginController = new \App\Controllers\LoginController(
             $this->configurationController->getConnection(),
         );
-        $this->searchController = new SearchController(
+        $this->searchController = new \App\Controllers\SearchController(
             $this->configurationController->getConnection(),
         );
 
-        $this->routeController = new RouteController(
+        $this->routeController = new \App\Controllers\RouteController(
             $this->adminController,
             $this->crudController,
             $this->detailController,
@@ -54,4 +55,3 @@ class MainController
         );
     }
 }
-?>

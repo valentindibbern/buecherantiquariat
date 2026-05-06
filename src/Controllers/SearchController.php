@@ -1,9 +1,13 @@
 <?php
 
+namespace App\Controllers;
+
+use mysqli;
+
 class SearchController
 {
-    private $conn;
-    private $info;
+    private mysqli $conn;
+    private array $info;
 
     public function __construct($conn)
     {
@@ -13,12 +17,12 @@ class SearchController
 
     public function update(string $querry): void
     {
-        $this->info = BookModel::searchBooks($this->conn, $querry);
+        $this->info = \App\Models\BookModel::searchBooks($this->conn, $querry);
     }
 
     public function render(string $querry, string $sort, string $dir): void
     {
         $this->update($querry);
-        SearchView::render($this->info, $sort, $dir);
+        \App\Views\SearchView::render($this->info, $sort, $dir);
     }
 }

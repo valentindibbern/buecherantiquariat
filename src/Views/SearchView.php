@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+
+namespace App\Views;
 
 class SearchView
 {
@@ -9,7 +12,7 @@ class SearchView
     ): void {
         echo <<<EOT
             <!DOCTYPE html>
-            <html>
+            <html lang="de">
                 <head>
                     <meta charset="UTF-8">
                     <link rel="stylesheet" href="styles.css">
@@ -18,8 +21,8 @@ class SearchView
                 <body>
         EOT;
 
-        HeaderComponent::render(
-            HeaderlocationEnum::SEARCH,
+        \App\Components\HeaderComponent::render(
+            \App\Datatypes\HeaderlocationEnum::SEARCH,
             "Search",
             $sort,
             $dir,
@@ -27,7 +30,7 @@ class SearchView
 
         echo '<div class="grid-container">';
         foreach ($contentArray as $item) {
-            KachelComponent::render(
+            \App\Components\KachelComponent::render(
                 $item["id"],
                 $item["foto"],
                 $item["Title"],
@@ -37,7 +40,7 @@ class SearchView
         }
         echo "</div>";
 
-        FooterComponent::render();
+        \App\Components\FooterComponent::render();
 
         echo <<<EOT
                 </body>
@@ -45,4 +48,3 @@ class SearchView
         EOT;
     }
 }
-?>

@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+namespace App\Datatypes;
+
 enum ZustandEnum: string
 {
     case GUT = "G";
@@ -16,4 +18,3 @@ enum ZustandEnum: string
         };
     }
 }
-?>
