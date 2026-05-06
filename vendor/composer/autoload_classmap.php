@@ -11,7 +11,6 @@ return array(
     'App\\Components\\KachelComponent' => $baseDir . '/src/Components/KachelComponent.php',
     'App\\Components\\LinklistComponent' => $baseDir . '/src/Components/LinklistComponent.php',
     'App\\Components\\PaginatorComponent' => $baseDir . '/src/Components/PaginatorComponent.php',
-    'App\\Components\\PopupComponent' => $baseDir . '/src/Components/PopupComponent.php',
     'App\\Components\\SearchComponent' => $baseDir . '/src/Components/SearchComponent.php',
     'App\\Components\\SortComponent' => $baseDir . '/src/Components/SortComponent.php',
     'App\\Controllers\\AdminController' => $baseDir . '/src/Controllers/AdminController.php',

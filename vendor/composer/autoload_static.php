@@ -26,7 +26,6 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'App\\Components\\KachelComponent' => __DIR__ . '/../..' . '/src/Components/KachelComponent.php',
         'App\\Components\\LinklistComponent' => __DIR__ . '/../..' . '/src/Components/LinklistComponent.php',
         'App\\Components\\PaginatorComponent' => __DIR__ . '/../..' . '/src/Components/PaginatorComponent.php',
-        'App\\Components\\PopupComponent' => __DIR__ . '/../..' . '/src/Components/PopupComponent.php',
         'App\\Components\\SearchComponent' => __DIR__ . '/../..' . '/src/Components/SearchComponent.php',
         'App\\Components\\SortComponent' => __DIR__ . '/../..' . '/src/Components/SortComponent.php',
         'App\\Controllers\\AdminController' => __DIR__ . '/../..' . '/src/Controllers/AdminController.php',
