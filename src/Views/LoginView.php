@@ -12,7 +12,13 @@ class LoginView
             <html lang="de">
             <head>
                 <meta charset="UTF-8">
-                <link rel="stylesheet" href="css/styles.css">
+                <link rel="stylesheet" href="
+        EOT;
+
+        echo BASE_URL . '/css/styles.css';
+
+        echo <<<EOT
+        ">
                 <title>Bücher Antiquariat</title>
             </head>
             <body>

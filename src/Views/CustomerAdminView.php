@@ -19,7 +19,13 @@ class CustomerAdminView
         <html lang="de">
             <head>
                 <meta charset="UTF-8">
-                <link rel="stylesheet" href="css/styles.css">
+                <link rel="stylesheet" href="
+        EOT;
+
+        echo BASE_URL . '/css/styles.css';
+
+        echo <<<EOT
+        ">
                 <title>Bücher Antiquariat</title>
             </head>
             <body>
@@ -33,7 +39,11 @@ class CustomerAdminView
         echo <<<HTML
         <div class="table-toolbar">
             <h2>Kunden</h2>
-            <form method="get" action="admin/customers" class="admin-search-form">
+            <form method="get" action="
+        HTML;
+        echo BASE_URL;
+        echo <<<HTML
+        /admin/customers" class="admin-search-form">
                 <input type="hidden" name="sort" value="$sort">
                 <input type="hidden" name="dir" value="$dir">
                 <input type="search" name="search" value="$searchValue" placeholder="Kunden suchen">
@@ -44,43 +54,51 @@ class CustomerAdminView
             <table>
                 <thead>
                     <tr>
-                        <th><a href="admin/customers?search={$searchQueryValue}&sort=kid&dir=
+                        <th><a href="
         HTML;
+        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=kid&dir=";
         echo self::nextDirection($sort, $dir, "kid");
         echo <<<HTML
         ">KID</a></th>
-                        <th><a href="admin/customers?search={$searchQueryValue}&sort=geburtstag&dir=
+                        <th><a href="
         HTML;
+        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=geburtstag&dir=";
         echo self::nextDirection($sort, $dir, "geburtstag");
         echo <<<HTML
         ">Geburtstag</a></th>
-                        <th><a href="admin/customers?search={$searchQueryValue}&sort=vorname&dir=
+                        <th><a href="
         HTML;
+        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=vorname&dir=";
         echo self::nextDirection($sort, $dir, "vorname");
         echo <<<HTML
         ">Vorname</a></th>
-                        <th><a href="admin/customers?search={$searchQueryValue}&sort=name&dir=
+                        <th><a href="
         HTML;
+        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=name&dir=";
         echo self::nextDirection($sort, $dir, "name");
         echo <<<HTML
         ">Name</a></th>
-                        <th><a href="admin/customers?search={$searchQueryValue}&sort=geschlecht&dir=
+                        <th><a href="
         HTML;
+        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=geschlecht&dir=";
         echo self::nextDirection($sort, $dir, "geschlecht");
         echo <<<HTML
         ">Geschlecht</a></th>
-                        <th><a href="admin/customers?search={$searchQueryValue}&sort=kunde_seit&dir=
+                        <th><a href="
         HTML;
+        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=kunde_seit&dir=";
         echo self::nextDirection($sort, $dir, "kunde_seit");
         echo <<<HTML
         ">Kunde seit</a></th>
-                        <th><a href="admin/customers?search={$searchQueryValue}&sort=email&dir=
+                        <th><a href="
         HTML;
+        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=email&dir=";
         echo self::nextDirection($sort, $dir, "email");
         echo <<<HTML
         ">E-Mail</a></th>
-                        <th><a href="admin/customers?search={$searchQueryValue}&sort=kontaktpermail&dir=
+                        <th><a href="
         HTML;
+        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=kontaktpermail&dir=";
         echo self::nextDirection($sort, $dir, "kontaktpermail");
         echo <<<HTML
         ">Kontakt per Mail</a></th>
@@ -110,7 +128,11 @@ class CustomerAdminView
                     <td>$kundeSeit</td>
                     <td>$email</td>
                     <td>$kontaktPerMail</td>
-                    <td><a href="crud/customer?kid=$kid">Bearbeiten</a></td>
+                    <td><a href="
+            HTML;
+            echo BASE_URL . "/crud/customer?kid=$kid";
+            echo <<<HTML
+            ">Bearbeiten</a></td>
                 </tr>
             HTML;
         }

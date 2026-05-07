@@ -26,7 +26,13 @@ class CustomerCRUDView
         <html lang="de">
             <head>
                 <meta charset="UTF-8">
-                <link rel="stylesheet" href="css/styles.css">
+                <link rel="stylesheet" href="
+        EOT;
+
+        echo BASE_URL . '/css/styles.css';
+
+        echo <<<EOT
+        ">
                 <title>Bücher Antiquariat</title>
             </head>
             <body>
@@ -38,7 +44,11 @@ class CustomerCRUDView
         );
 
         echo <<<HTML
-        <form method="post" action="crud/customer" class="crud-form">
+        <form method="post" action="
+        HTML;
+        echo BASE_URL;
+        echo <<<HTML
+        /crud/customer" class="crud-form">
             <h1>$headline</h1>
             <label for="kid">KID</label>
             <br>

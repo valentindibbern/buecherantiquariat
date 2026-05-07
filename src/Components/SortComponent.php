@@ -16,7 +16,11 @@ class SortComponent
 
         return <<<HTML
         <li class="horizontal-list-element nav-item">
-            <form method="get" action="home" class="sort-form">
+            <form method="get" action="
+        HTML
+        . BASE_URL .
+        <<<HTML
+        /home" class="sort-form">
                 <select name="sort" class="sort-select" onchange="this.form.submit()">
                     <option value="title" $titelSelected>Titel</option>
                     <option value="autor" $autorSelected>Autor</option>

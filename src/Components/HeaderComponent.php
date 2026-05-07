@@ -11,7 +11,13 @@ class HeaderComponent
     ): void
     {
         $html = <<<HTML
-        <h1 class='page-title'><a href='home'>Bücher Antiquariat</a></h1>
+        <h1 class='page-title'><a href='
+        HTML;
+
+        $html .= BASE_URL . "/home";
+
+        $html .= <<<HTML
+        '>Bücher Antiquariat</a></h1>
         <hr>
         <nav class="navbar">
             <ul class="horizontal-list">
