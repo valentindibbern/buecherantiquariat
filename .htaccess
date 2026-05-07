@@ -1,4 +1,12 @@
 RewriteEngine On
 
+# 1. Falls die Anfrage bereits auf public/ zeigt – nichts mehr tun (Endlosschleife vermeiden)
 RewriteRule ^public/ - [L]
+
+# 2. Existiert die angefragte Datei oder das Verzeichnis wirklich im public-Ordner?
+RewriteCond %{DOCUMENT_ROOT}/projekt/public/$1 -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/projekt/public/$1 -d
 RewriteRule ^(.*)$ public/$1 [L]
+
+# 3. Alle anderen Anfragen (virtuelle Routen) an den Frontcontroller
+RewriteRule ^(.*)$ public/index.php [QSA,L]
