@@ -26,7 +26,7 @@ class DetailView
             <html lang="de">
                 <head>
                     <meta charset="UTF-8">
-                    <link rel="stylesheet" href="styles.css">
+                    <link rel="stylesheet" href="css/styles.css">
                     <title>Bücher Antiquariat</title>
                 </head>
                 <body>
