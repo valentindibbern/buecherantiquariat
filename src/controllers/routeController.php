@@ -10,7 +10,10 @@ class RouteController
     private array $routes = [];
 
     private \App\Controllers\AdminController $adminController;
+    private \App\Controllers\BookAdminController $bookAdminController;
     private \App\Controllers\CRUDController $crudController;
+    private \App\Controllers\CustomerAdminController $customerAdminController;
+    private \App\Controllers\CustomerCrudController $customerCrudController;
     private \App\Controllers\DetailController $detailController;
     private \App\Controllers\KachelController $kachelController;
     private \App\Controllers\LoginController $loginController;
@@ -18,14 +21,20 @@ class RouteController
 
     public function __construct(
         \App\Controllers\AdminController $adminController,
+        \App\Controllers\BookAdminController $bookAdminController,
         \App\Controllers\CRUDController $crudController,
+        \App\Controllers\CustomerAdminController $customerAdminController,
+        \App\Controllers\CustomerCrudController $customerCrudController,
         \App\Controllers\DetailController $detailController,
         \App\Controllers\KachelController $kachelController,
         \App\Controllers\LoginController $loginController,
         \App\Controllers\SearchController $searchController,
     ) {
         $this->adminController = $adminController;
+        $this->bookAdminController = $bookAdminController;
         $this->crudController = $crudController;
+        $this->customerAdminController = $customerAdminController;
+        $this->customerCrudController = $customerCrudController;
         $this->detailController = $detailController;
         $this->kachelController = $kachelController;
         $this->loginController = $loginController;
@@ -101,6 +110,11 @@ class RouteController
                 echo "Problem";
             }
         });
+        $this->addRoute("/logout", function () {
+            session_destroy();
+            header("Location: " . BASE_URL . "/home");
+            exit();
+        });
         $this->addRoute("/admin", function () {
             if (empty($_SESSION["authenticated"])) {
                 header("Location: " . BASE_URL . "/login");
@@ -108,15 +122,60 @@ class RouteController
             }
             $this->adminController->render();
         });
-        $this->addRoute("/crud", function () {
+        $this->addRoute("/admin/books", function () {
             if (empty($_SESSION["authenticated"])) {
                 header("Location: " . BASE_URL . "/login");
                 exit();
             }
+            $this->bookAdminController->render(
+                (string) ($_GET["search"] ?? ""),
+                (string) ($_GET["sort"] ?? "id"),
+                (string) ($_GET["dir"] ?? "asc"),
+            );
+        });
+        $this->addRoute("/admin/customers", function () {
+            if (empty($_SESSION["authenticated"])) {
+                header("Location: " . BASE_URL . "/login");
+                exit();
+            }
+            $this->customerAdminController->render(
+                (string) ($_GET["search"] ?? ""),
+                (string) ($_GET["sort"] ?? "kid"),
+                (string) ($_GET["dir"] ?? "asc"),
+            );
+        });
+        $this->addRoute("/admin/info", function () {
+            if (empty($_SESSION["authenticated"])) {
+                header("Location: " . BASE_URL . "/login");
+                exit();
+            }
+            \App\Views\PHPInfoView::render();
+        });
+        $this->addRoute("/crud/book", function () {
+            if (empty($_SESSION["authenticated"])) {
+                header("Location: " . BASE_URL . "/login");
+                exit();
+            }
+
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $this->crudController->handlePost($_POST);
+                return;
+            }
+
             $this->crudController->render((int) ($_GET["id"] ?? 0));
         });
-        $this->addRoute("/info", function () {
-            \App\Views\PHPInfoView::render();
+        $this->addRoute("/crud/customer", function () {
+            if (empty($_SESSION["authenticated"])) {
+                header("Location: " . BASE_URL . "/login");
+                exit();
+            }
+
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $this->customerCrudController->handlePost($_POST);
+                return;
+            }
+
+            $this->customerCrudController->render((int) ($_GET["kid"] ?? 0));
         });
     }
 }

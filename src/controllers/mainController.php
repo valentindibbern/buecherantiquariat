@@ -5,8 +5,11 @@ namespace App\Controllers;
 class MainController
 {
     private \App\Controllers\AdminController $adminController;
+    private \App\Controllers\BookAdminController $bookAdminController;
     private \App\Controllers\CRUDController $crudController;
     private \App\Controllers\ConfigurationController $configurationController;
+    private \App\Controllers\CustomerAdminController $customerAdminController;
+    private \App\Controllers\CustomerCrudController $customerCrudController;
     private \App\Controllers\DetailController $detailController;
     private \App\Controllers\KachelController $kachelController;
     private \App\Controllers\LoginController $loginController;
@@ -21,7 +24,16 @@ class MainController
         $this->adminController = new \App\Controllers\AdminController(
             $this->configurationController->getConnection(),
         );
+        $this->bookAdminController = new \App\Controllers\BookAdminController(
+            $this->configurationController->getConnection(),
+        );
         $this->crudController = new \App\Controllers\CrudController(
+            $this->configurationController->getConnection(),
+        );
+        $this->customerAdminController = new \App\Controllers\CustomerAdminController(
+            $this->configurationController->getConnection(),
+        );
+        $this->customerCrudController = new \App\Controllers\CustomerCrudController(
             $this->configurationController->getConnection(),
         );
         $this->detailController = new \App\Controllers\DetailController(
@@ -39,7 +51,10 @@ class MainController
 
         $this->routeController = new \App\Controllers\RouteController(
             $this->adminController,
+            $this->bookAdminController,
             $this->crudController,
+            $this->customerAdminController,
+            $this->customerCrudController,
             $this->detailController,
             $this->kachelController,
             $this->loginController,

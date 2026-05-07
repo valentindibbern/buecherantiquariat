@@ -21,8 +21,23 @@ class HeaderComponent
             case \App\Datatypes\HeaderlocationEnum::ADMIN:
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::ADMIN);
                 break;
+            case \App\Datatypes\HeaderlocationEnum::ADMIN_BOOKS:
+                $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::ADMIN_BOOKS);
+                break;
+            case \App\Datatypes\HeaderlocationEnum::ADMIN_CUSTOMERS:
+                $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::ADMIN_CUSTOMERS);
+                break;
+            case \App\Datatypes\HeaderlocationEnum::ADMIN_INFO:
+                $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::ADMIN_INFO);
+                break;
             case \App\Datatypes\HeaderlocationEnum::CRUD:
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::CRUD);
+                break;
+            case \App\Datatypes\HeaderlocationEnum::CRUD_BOOK:
+                $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::CRUD_BOOK);
+                break;
+            case \App\Datatypes\HeaderlocationEnum::CRUD_CUSTOMER:
+                $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::CRUD_CUSTOMER);
                 break;
             case \App\Datatypes\HeaderlocationEnum::DETAIL:
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::DETAIL);
