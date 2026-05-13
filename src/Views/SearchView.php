@@ -9,23 +9,23 @@ class SearchView
         array $contentArray,
         string $sort,
         string $dir,
+        string $search = "",
     ): void {
-        echo <<<EOT
-            <!DOCTYPE html>
-            <html lang="de">
-                <head>
-                    <meta charset="UTF-8">
-                    <link rel="stylesheet" href="css/styles.css">
-                    <title>Bücher Antiquariat</title>
-                </head>
-                <body>
-        EOT;
+        echo "<!DOCTYPE html>\n";
+        echo "<html lang=\"de\">\n";
+        echo "<head>\n";
+        echo "<meta charset=\"UTF-8\">\n";
+        echo '<link rel="stylesheet" href="' . BASE_URL . '/public/css/styles.css">' . "\n";
+        echo "<title>Bücher Antiquariat</title>\n";
+        echo "</head>\n";
+        echo "<body>\n";
 
         \App\Components\HeaderComponent::render(
             \App\Datatypes\HeaderlocationEnum::SEARCH,
             "Search",
             $sort,
             $dir,
+            $search,
         );
 
         echo '<div class="grid-container">';
@@ -42,9 +42,6 @@ class SearchView
 
         \App\Components\FooterComponent::render();
 
-        echo <<<EOT
-                </body>
-            </html>
-        EOT;
+        echo "</body></html>";
     }
 }

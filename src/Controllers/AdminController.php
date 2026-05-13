@@ -16,7 +16,6 @@ class AdminController
 
     public function render(): void
     {
-        $books = \App\Models\BookModel::getAllBooks($this->connection);
-        \App\Views\AdminView::render($books);
+        \App\Views\AdminView::render();
     }
 }

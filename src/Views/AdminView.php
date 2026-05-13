@@ -5,70 +5,26 @@ namespace App\Views;
 
 class AdminView
 {
-    public static function render(array $contentArray): void
+    public static function render(): void
     {
-        echo <<<EOT
-        <!DOCTYPE html>
-        <html lang="de">
-            <head>
-                <meta charset="UTF-8">
-                <link rel="stylesheet" href="css/styles.css">
-                <title>Bücher Antiquariat</title>
-            </head>
-            <body>
-        EOT;
+        echo "<!DOCTYPE html>\n";
+        echo "<html lang=\"de\">\n";
+        echo "<head>\n";
+        echo "<meta charset=\"UTF-8\">\n";
+        echo '<link rel="stylesheet" href="' . BASE_URL . '/public/css/styles.css">' . "\n";
+        echo "<title>Bücher Antiquariat</title>\n";
+        echo "</head>\n";
+        echo "<body>\n";
 
         \App\Components\HeaderComponent::render(\App\Datatypes\HeaderlocationEnum::ADMIN, "Admin");
 
-        $html = <<<HTML
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Katalog</th>
-                        <th>Nummer</th>
-                        <th>Title</th>
-                        <th>Kategorie</th>
-                        <th>Verkauft</th>
-                        <th>Käufer</th>
-                        <th>Author</th>
-                        <th>Beschreibung</th>
-                        <th>Foto</th>
-                        <th>Verfasser</th>
-                        <th>Zustand</th>
-                    </tr>
-                </thead>
-                <tbody>
-        HTML;
-
-        foreach ($contentArray as $book) {
-            $html .= <<<HTML
-                <tr>
-                    <td>{$book["id"]}</td>
-                    <td>{$book["katalog"]}</td>
-                    <td>{$book["nummer"]}</td>
-                    <td>{$book["Title"]}</td>
-                    <td>{$book["kategorie"]}</td>
-                    <td>{$book["verkauft"]}</td>
-                    <td>{$book["kaufer"]}</td>
-                    <td>{$book["autor"]}</td>
-                    <td>{$book["Beschreibung"]}</td>
-                    <td>{$book["foto"]}</td>
-                    <td>{$book["verfasser"]}</td>
-                    <td>{$book["zustand"]}</td>
-                </tr>
-            HTML;
-        }
-
-        $html .= <<<HTML
-                    </tbody>
-                </table>
-            </div>
-            </body>
-        </html>
-        HTML;
-
-        echo $html;
+        echo '<div class="admin-selection-container">';
+        echo '<h2>Admin Auswahl</h2>';
+        echo '<ul class="admin-selection-list">';
+        echo '<li><a href="' . BASE_URL . '/admin/books">Bücher verwalten</a></li>';
+        echo '<li><a href="' . BASE_URL . '/admin/customers">Kunden verwalten</a></li>';
+        echo '<li><a href="' . BASE_URL . '/admin/info">PHP Info</a></li>';
+        echo '</ul>';
+        echo '</div></body></html>';
     }
 }

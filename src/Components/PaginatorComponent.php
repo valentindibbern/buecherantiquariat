@@ -5,6 +5,11 @@ namespace App\Components;
 
 class PaginatorComponent
 {
+    private static function homeUrl(int $page): string
+    {
+        return BASE_URL . "/home?page=$page";
+    }
+
     public static function render(
         int    $currentPage,
         int    $totalPages,
@@ -22,8 +27,16 @@ class PaginatorComponent
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
                         <li class="horizontal-list-element align-center current-page">1</li>
-                        <li class="horizontal-list-element margin-left-auto next-page"><a href="home?page={$nextPage}">{$nextPage}</a></li>
-                        <li class="horizontal-list-element margin-left-auto last-page"><a href="home?page={$totalPages}">{$totalPages}</a></li>
+                        <li class="horizontal-list-element margin-left-auto next-page"><a href="
+                EOT;
+                echo self::homeUrl($nextPage);
+                echo <<<EOT
+                ">{$nextPage}</a></li>
+                        <li class="horizontal-list-element margin-left-auto last-page"><a href="
+                EOT;
+                echo self::homeUrl($totalPages);
+                echo <<<EOT
+                ">{$totalPages}</a></li>
                     </ul>
                 </div>
                 <hr>
@@ -34,10 +47,22 @@ class PaginatorComponent
                 <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
-                        <li class="horizontal-list-element margin-right-auto previous-page"><a href="home?page=1">1</a></li>
+                        <li class="horizontal-list-element margin-right-auto previous-page"><a href="
+                EOT;
+                echo self::homeUrl(1);
+                echo <<<EOT
+                ">1</a></li>
                         <li class="horizontal-list-element align-center current-page">{$currentPage}</li>
-                        <li class="horizontal-list-element margin-left-auto next-page"><a href="home?page={$nextPage}">{$nextPage}</a></li>
-                        <li class="horizontal-list-element margin-left-auto last-page"><a href="home?page={$totalPages}">{$totalPages}</a></li>
+                        <li class="horizontal-list-element margin-left-auto next-page"><a href="
+                EOT;
+                echo self::homeUrl($nextPage);
+                echo <<<EOT
+                ">{$nextPage}</a></li>
+                        <li class="horizontal-list-element margin-left-auto last-page"><a href="
+                EOT;
+                echo self::homeUrl($totalPages);
+                echo <<<EOT
+                ">{$totalPages}</a></li>
                     </ul>
                 </div>
                 <hr>
@@ -48,10 +73,22 @@ class PaginatorComponent
                 <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
-                        <li class="horizontal-list-element margin-right-auto first-page"><a href="home?page=1">1</a></li>
-                        <li class="horizontal-list-element margin-right-auto previous-page"><a href="home?page={$previousPage}">{$previousPage}</a></li>
+                        <li class="horizontal-list-element margin-right-auto first-page"><a href="
+                EOT;
+                echo self::homeUrl(1);
+                echo <<<EOT
+                ">1</a></li>
+                        <li class="horizontal-list-element margin-right-auto previous-page"><a href="
+                EOT;
+                echo self::homeUrl($previousPage);
+                echo <<<EOT
+                ">{$previousPage}</a></li>
                         <li class="horizontal-list-element align-center current-page">{$currentPage}</li>
-                        <li class="horizontal-list-element margin-left-auto last-page"><a href="home?page={$totalPages}">{$totalPages}</a></li>
+                        <li class="horizontal-list-element margin-left-auto last-page"><a href="
+                EOT;
+                echo self::homeUrl($totalPages);
+                echo <<<EOT
+                ">{$totalPages}</a></li>
                     </ul>
                 </div>
                 <hr>
@@ -62,8 +99,16 @@ class PaginatorComponent
                 <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
-                        <li class="horizontal-list-element margin-right-auto first-page"><a href="home?page=1">1</a></li>
-                        <li class="horizontal-list-element margin-right-auto previous-page"><a href="home?page={$previousPage}">{$previousPage}</a></li>
+                        <li class="horizontal-list-element margin-right-auto first-page"><a href="
+                EOT;
+                echo self::homeUrl(1);
+                echo <<<EOT
+                ">1</a></li>
+                        <li class="horizontal-list-element margin-right-auto previous-page"><a href="
+                EOT;
+                echo self::homeUrl($previousPage);
+                echo <<<EOT
+                ">{$previousPage}</a></li>
                         <li class="horizontal-list-element align-center current-page">{$currentPage}</li>
                     </ul>
                 </div>
@@ -75,11 +120,27 @@ class PaginatorComponent
                 <hr>
                 <div class="paginator-container align-center">
                     <ul class="horizontal-list centered-list">
-                        <li class="horizontal-list-element margin-right-auto first-page"><a href="home?page=1">1</a></li>
-                        <li class="horizontal-list-element margin-right-auto previous-page"><a href="home?page={$previousPage}">{$previousPage}</a></li>
+                        <li class="horizontal-list-element margin-right-auto first-page"><a href="
+                EOT;
+                echo self::homeUrl(1);
+                echo <<<EOT
+                ">1</a></li>
+                        <li class="horizontal-list-element margin-right-auto previous-page"><a href="
+                EOT;
+                echo self::homeUrl($previousPage);
+                echo <<<EOT
+                ">{$previousPage}</a></li>
                         <li class="horizontal-list-element align-center current-page">{$currentPage}</li>
-                        <li class="horizontal-list-element margin-left-auto next-page"><a href="home?page={$nextPage}">{$nextPage}</a></li>
-                        <li class="horizontal-list-element margin-left-auto last-page"><a href="home?page={$totalPages}">{$totalPages}</a></li>
+                        <li class="horizontal-list-element margin-left-auto next-page"><a href="
+                EOT;
+                echo self::homeUrl($nextPage);
+                echo <<<EOT
+                ">{$nextPage}</a></li>
+                        <li class="horizontal-list-element margin-left-auto last-page"><a href="
+                EOT;
+                echo self::homeUrl($totalPages);
+                echo <<<EOT
+                ">{$totalPages}</a></li>
                     </ul>
                 </div>
                 <hr>

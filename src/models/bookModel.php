@@ -99,5 +99,172 @@ class BookModel
         $result = $statement->get_result();
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+    public static function getAdminBooks(
+        mysqli $connection,
+        string $search,
+        string $sort,
+        string $dir,
+    ): array {
+        switch ($sort) {
+            case "Title":
+            case "title":
+                $sort = "Title";
+                break;
+            case "autor":
+                $sort = "autor";
+                break;
+            case "zustand":
+                $sort = "zustand";
+                break;
+            case "nummer":
+                $sort = "nummer";
+                break;
+            case "katalog":
+                $sort = "katalog";
+                break;
+            case "id":
+            default:
+                $sort = "id";
+                break;
+        }
+
+        switch ($dir) {
+            case "desc":
+            case "DESC":
+                $dir = "DESC";
+                break;
+            case "asc":
+            case "ASC":
+            default:
+                $dir = "ASC";
+                break;
+        }
+
+        $query = "%" . $search . "%";
+        $sql = "
+        SELECT * FROM buecher
+        WHERE
+            CAST(id AS CHAR) LIKE ? OR
+            CAST(nummer AS CHAR) LIKE ? OR
+            Title LIKE ? OR
+            autor LIKE ? OR
+            Beschreibung LIKE ?
+        ORDER BY `$sort` $dir
+        ";
+
+        $statement = $connection->prepare($sql);
+        $statement->bind_param("sssss", $query, $query, $query, $query, $query);
+        $statement->execute();
+        $result = $statement->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public static function createBook(mysqli $connection, array $data): void
+    {
+        $sql = "
+        INSERT INTO buecher (
+            katalog,
+            nummer,
+            Title,
+            kategorie,
+            verkauft,
+            kaufer,
+            autor,
+            Beschreibung,
+            foto,
+            verfasser,
+            zustand
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ";
+
+        $statement = $connection->prepare($sql);
+        $katalog = (int) ($data["katalog"] ?? 0);
+        $nummer = (int) ($data["nummer"] ?? 0);
+        $title = (string) ($data["title"] ?? "");
+        $kategorie = (int) ($data["kategorie"] ?? 0);
+        $verkauft = (int) ($data["verkauft"] ?? 0);
+        $kaufer = (int) ($data["kaufer"] ?? 0);
+        $autor = (string) ($data["autor"] ?? "");
+        $beschreibung = (string) ($data["beschreibung"] ?? "");
+        $foto = (string) ($data["foto"] ?? "");
+        $verfasser = (int) ($data["verfasser"] ?? 0);
+        $zustand = (string) ($data["zustand"] ?? "");
+
+        $statement->bind_param(
+            "iisiiisssis",
+            $katalog,
+            $nummer,
+            $title,
+            $kategorie,
+            $verkauft,
+            $kaufer,
+            $autor,
+            $beschreibung,
+            $foto,
+            $verfasser,
+            $zustand,
+        );
+        $statement->execute();
+    }
+
+    public static function updateBook(mysqli $connection, array $data): void
+    {
+        $sql = "
+        UPDATE buecher
+        SET
+            katalog = ?,
+            nummer = ?,
+            Title = ?,
+            kategorie = ?,
+            verkauft = ?,
+            kaufer = ?,
+            autor = ?,
+            Beschreibung = ?,
+            foto = ?,
+            verfasser = ?,
+            zustand = ?
+        WHERE id = ?
+        ";
+
+        $statement = $connection->prepare($sql);
+        $id = (int) ($data["id"] ?? 0);
+        $katalog = (int) ($data["katalog"] ?? 0);
+        $nummer = (int) ($data["nummer"] ?? 0);
+        $title = (string) ($data["title"] ?? "");
+        $kategorie = (int) ($data["kategorie"] ?? 0);
+        $verkauft = (int) ($data["verkauft"] ?? 0);
+        $kaufer = (int) ($data["kaufer"] ?? 0);
+        $autor = (string) ($data["autor"] ?? "");
+        $beschreibung = (string) ($data["beschreibung"] ?? "");
+        $foto = (string) ($data["foto"] ?? "");
+        $verfasser = (int) ($data["verfasser"] ?? 0);
+        $zustand = (string) ($data["zustand"] ?? "");
+
+        $statement->bind_param(
+            "iisiiisssisi",
+            $katalog,
+            $nummer,
+            $title,
+            $kategorie,
+            $verkauft,
+            $kaufer,
+            $autor,
+            $beschreibung,
+            $foto,
+            $verfasser,
+            $zustand,
+            $id,
+        );
+        $statement->execute();
+    }
+
+    public static function deleteBook(mysqli $connection, int $id): void
+    {
+        $sql = "DELETE FROM buecher WHERE id = ?";
+        $statement = $connection->prepare($sql);
+        $statement->bind_param("i", $id);
+        $statement->execute();
+    }
 }
 ?>

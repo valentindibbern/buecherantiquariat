@@ -11,7 +11,13 @@ class KachelComponent
             \App\Datatypes\ZustandEnum::from($zustand)->label() ?? "Zustand nicht verfügbar";
 
         echo <<<EOT
-            <a href="detail?id=$id">
+            <a href="
+        EOT;
+
+        echo BASE_URL . "/detail?id=$id";
+
+        echo <<<EOT
+            ">
                 <div class="kachel">
                     <img class="kachel-img" src="$img" alt="Bild von $name">
                     <div class="kachel-content">
