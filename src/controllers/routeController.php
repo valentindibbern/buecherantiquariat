@@ -162,7 +162,12 @@ class RouteController
                 return;
             }
 
-            $this->crudController->render((int) ($_GET["id"] ?? 0));
+            $this->crudController->render(
+                (int) ($_GET["id"] ?? 0),
+                (string) ($_GET["search"] ?? ""),
+                (string) ($_GET["sort"] ?? "id"),
+                (string) ($_GET["dir"] ?? "asc"),
+            );
         });
         $this->addRoute("/crud/customer", function () {
             if (empty($_SESSION["authenticated"])) {
@@ -175,7 +180,12 @@ class RouteController
                 return;
             }
 
-            $this->customerCrudController->render((int) ($_GET["kid"] ?? 0));
+            $this->customerCrudController->render(
+                (int) ($_GET["kid"] ?? 0),
+                (string) ($_GET["search"] ?? ""),
+                (string) ($_GET["sort"] ?? "kid"),
+                (string) ($_GET["dir"] ?? "asc"),
+            );
         });
     }
 }

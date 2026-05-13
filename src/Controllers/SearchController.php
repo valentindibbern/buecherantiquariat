@@ -23,6 +23,6 @@ class SearchController
     public function render(string $querry, string $sort, string $dir): void
     {
         $this->update($querry);
-        \App\Views\SearchView::render($this->info, $sort, $dir);
+        \App\Views\SearchView::render($this->info, $sort, $dir, $querry);
     }
 }

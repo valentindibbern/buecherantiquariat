@@ -14,7 +14,7 @@ class CustomerCrudController
         $this->connection = $connection;
     }
 
-    public function render(int $kid): void
+    public function render(int $kid, string $search = "", string $sort = "kid", string $dir = "asc"): void
     {
         $content = [];
 
@@ -22,16 +22,20 @@ class CustomerCrudController
             $content = \App\Models\CustomerModel::getCustomerById($this->connection, $kid) ?? [];
         }
 
-        \App\Views\CustomerCRUDView::render($content);
+        \App\Views\CustomerCRUDView::render($content, $search, $sort, $dir);
     }
 
     public function handlePost(array $postData): void
     {
         $kid = (int) ($postData["kid"] ?? 0);
+        $search = urlencode((string) ($postData["search"] ?? ""));
+        $sort = urlencode((string) ($postData["sort"] ?? "kid"));
+        $dir = urlencode((string) ($postData["dir"] ?? "asc"));
+        $redirectUrl = BASE_URL . "/admin/customers?search=$search&sort=$sort&dir=$dir";
 
         if (isset($postData["delete"]) && $kid !== 0) {
             \App\Models\CustomerModel::deleteCustomer($this->connection, $kid);
-            header("Location: " . BASE_URL . "/admin/customers");
+            header("Location: " . $redirectUrl);
             exit();
         }
 
@@ -46,7 +50,7 @@ class CustomerCrudController
             \App\Models\CustomerModel::updateCustomer($this->connection, $postData);
         }
 
-        header("Location: " . BASE_URL . "/admin/customers");
+        header("Location: " . $redirectUrl);
         exit();
     }
 }

@@ -11,150 +11,57 @@ class CustomerAdminView
         string $sort,
         string $dir,
     ): void {
-        $searchValue = htmlspecialchars($search, ENT_QUOTES);
-        $searchQueryValue = urlencode($search);
+        $linkSearch = urlencode($search);
+        $linkSort = urlencode($sort);
+        $linkDir = urlencode($dir);
 
-        echo <<<EOT
-        <!DOCTYPE html>
-        <html lang="de">
-            <head>
-                <meta charset="UTF-8">
-                <link rel="stylesheet" href="
-        EOT;
-
-        echo BASE_URL . '/css/styles.css';
-
-        echo <<<EOT
-        ">
-                <title>Bücher Antiquariat</title>
-            </head>
-            <body>
-        EOT;
+        echo "<!DOCTYPE html>\n";
+        echo "<html lang=\"de\">\n";
+        echo "<head>\n";
+        echo "<meta charset=\"UTF-8\">\n";
+        echo '<link rel="stylesheet" href="' . BASE_URL . '/public/css/styles.css">' . "\n";
+        echo "<title>Bücher Antiquariat</title>\n";
+        echo "</head>\n";
+        echo "<body>\n";
 
         \App\Components\HeaderComponent::render(
             \App\Datatypes\HeaderlocationEnum::ADMIN_CUSTOMERS,
             "Kunden Admin",
+            $sort,
+            $dir,
+            $search,
         );
 
-        echo <<<HTML
-        <div class="table-toolbar">
-            <h2>Kunden</h2>
-            <form method="get" action="
-        HTML;
-        echo BASE_URL;
-        echo <<<HTML
-        /admin/customers" class="admin-search-form">
-                <input type="hidden" name="sort" value="$sort">
-                <input type="hidden" name="dir" value="$dir">
-                <input type="search" name="search" value="$searchValue" placeholder="Kunden suchen">
-                <button type="submit">Suchen</button>
-            </form>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=kid&dir=";
-        echo self::nextDirection($sort, $dir, "kid");
-        echo <<<HTML
-        ">KID</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=geburtstag&dir=";
-        echo self::nextDirection($sort, $dir, "geburtstag");
-        echo <<<HTML
-        ">Geburtstag</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=vorname&dir=";
-        echo self::nextDirection($sort, $dir, "vorname");
-        echo <<<HTML
-        ">Vorname</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=name&dir=";
-        echo self::nextDirection($sort, $dir, "name");
-        echo <<<HTML
-        ">Name</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=geschlecht&dir=";
-        echo self::nextDirection($sort, $dir, "geschlecht");
-        echo <<<HTML
-        ">Geschlecht</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=kunde_seit&dir=";
-        echo self::nextDirection($sort, $dir, "kunde_seit");
-        echo <<<HTML
-        ">Kunde seit</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=email&dir=";
-        echo self::nextDirection($sort, $dir, "email");
-        echo <<<HTML
-        ">E-Mail</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/customers?search={$searchQueryValue}&sort=kontaktpermail&dir=";
-        echo self::nextDirection($sort, $dir, "kontaktpermail");
-        echo <<<HTML
-        ">Kontakt per Mail</a></th>
-                        <th>Aktion</th>
-                    </tr>
-                </thead>
-                <tbody>
-        HTML;
+        echo '<div class="table-container">';
+        echo '<table>';
+        echo '<thead><tr>';
+        echo '<th>KID</th><th>Geburtstag</th><th>Vorname</th><th>Name</th><th>Geschlecht</th><th>Kunde seit</th><th>E-Mail</th><th>Kontakt per Mail</th>';
+        echo '</tr></thead><tbody>';
 
         foreach ($contentArray as $customer) {
             $kid = (int) ($customer["kid"] ?? 0);
             $geburtstag = htmlspecialchars((string) ($customer["geburtstag"] ?? ""), ENT_QUOTES);
             $vorname = htmlspecialchars((string) ($customer["vorname"] ?? ""), ENT_QUOTES);
             $name = htmlspecialchars((string) ($customer["name"] ?? ""), ENT_QUOTES);
+            $nameLabel = $name !== "" ? $name : "Ohne Namen";
             $geschlecht = htmlspecialchars((string) ($customer["geschlecht"] ?? ""), ENT_QUOTES);
             $kundeSeit = htmlspecialchars((string) ($customer["kunde_seit"] ?? ""), ENT_QUOTES);
             $email = htmlspecialchars((string) ($customer["email"] ?? ""), ENT_QUOTES);
             $kontaktPerMail = htmlspecialchars((string) ($customer["kontaktpermail"] ?? ""), ENT_QUOTES);
+            $link = BASE_URL . '/crud/customer?kid=' . $kid . '&search=' . $linkSearch . '&sort=' . $linkSort . '&dir=' . $linkDir;
 
-            echo <<<HTML
-                <tr>
-                    <td>$kid</td>
-                    <td>$geburtstag</td>
-                    <td>$vorname</td>
-                    <td>$name</td>
-                    <td>$geschlecht</td>
-                    <td>$kundeSeit</td>
-                    <td>$email</td>
-                    <td>$kontaktPerMail</td>
-                    <td><a href="
-            HTML;
-            echo BASE_URL . "/crud/customer?kid=$kid";
-            echo <<<HTML
-            ">Bearbeiten</a></td>
-                </tr>
-            HTML;
+            echo '<tr>';
+            echo '<td>' . $kid . '</td>';
+            echo '<td>' . $geburtstag . '</td>';
+            echo '<td>' . $vorname . '</td>';
+            echo '<td><a class="table-link" href="' . $link . '">' . $nameLabel . '</a></td>';
+            echo '<td>' . $geschlecht . '</td>';
+            echo '<td>' . $kundeSeit . '</td>';
+            echo '<td>' . $email . '</td>';
+            echo '<td>' . $kontaktPerMail . '</td>';
+            echo '</tr>';
         }
 
-        echo <<<HTML
-                </tbody>
-            </table>
-        </div>
-        </body>
-        </html>
-        HTML;
-    }
-
-    private static function nextDirection(
-        string $currentSort,
-        string $currentDir,
-        string $column,
-    ): string {
-        if ($currentSort === $column && strtolower($currentDir) === "asc") {
-            return "desc";
-        }
-
-        return "asc";
+        echo '</tbody></table></div></body></html>';
     }
 }

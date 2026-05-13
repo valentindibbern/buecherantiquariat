@@ -14,7 +14,7 @@ class CRUDController
         $this->connection = $connection;
     }
 
-    public function render(int $id): void
+    public function render(int $id, string $search = "", string $sort = "id", string $dir = "asc"): void
     {
         $content = [];
 
@@ -22,16 +22,20 @@ class CRUDController
             $content = \App\Models\BookModel::getBookById($this->connection, $id) ?? [];
         }
 
-        \App\Views\CRUDView::render($content);
+        \App\Views\CRUDView::render($content, $search, $sort, $dir);
     }
 
     public function handlePost(array $postData): void
     {
         $id = (int) ($postData["id"] ?? 0);
+        $search = urlencode((string) ($postData["search"] ?? ""));
+        $sort = urlencode((string) ($postData["sort"] ?? "id"));
+        $dir = urlencode((string) ($postData["dir"] ?? "asc"));
+        $redirectUrl = BASE_URL . "/admin/books?search=$search&sort=$sort&dir=$dir";
 
         if (isset($postData["delete"]) && $id !== 0) {
             \App\Models\BookModel::deleteBook($this->connection, $id);
-            header("Location: " . BASE_URL . "/admin/books");
+            header("Location: " . $redirectUrl);
             exit();
         }
 
@@ -41,7 +45,7 @@ class CRUDController
             \App\Models\BookModel::updateBook($this->connection, $postData);
         }
 
-        header("Location: " . BASE_URL . "/admin/books");
+        header("Location: " . $redirectUrl);
         exit();
     }
 }

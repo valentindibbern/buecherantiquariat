@@ -5,7 +5,7 @@ namespace App\Views;
 
 class CRUDView
 {
-    public static function render(array $content): void
+    public static function render(array $content, string $search = "", string $sort = "id", string $dir = "asc"): void
     {
         $id = htmlspecialchars((string) ($content["id"] ?? ""), ENT_QUOTES);
         $title = htmlspecialchars((string) ($content["Title"] ?? ""), ENT_QUOTES);
@@ -20,108 +20,55 @@ class CRUDView
         $verfasser = htmlspecialchars((string) ($content["verfasser"] ?? ""), ENT_QUOTES);
         $zustand = htmlspecialchars((string) ($content["zustand"] ?? ""), ENT_QUOTES);
         $headline = $id === "" ? "Neues Buch" : "Buch bearbeiten";
+        $searchValue = htmlspecialchars($search, ENT_QUOTES);
+        $sortValue = htmlspecialchars($sort, ENT_QUOTES);
+        $dirValue = htmlspecialchars($dir, ENT_QUOTES);
 
-        echo <<<EOT
-        <!DOCTYPE html>
-        <html lang="de">
-            <head>
-                <meta charset="UTF-8">
-                <link rel="stylesheet" href="
-        EOT;
-
-        echo BASE_URL . '/css/styles.css';
-
-        echo <<<EOT
-        ">
-                <title>Bücher Antiquariat</title>
-            </head>
-            <body>
-        EOT;
+        echo "<!DOCTYPE html>\n";
+        echo "<html lang=\"de\">\n";
+        echo "<head>\n";
+        echo "<meta charset=\"UTF-8\">\n";
+        echo '<link rel="stylesheet" href="' . BASE_URL . '/public/css/styles.css">' . "\n";
+        echo "<title>Bücher Antiquariat</title>\n";
+        echo "</head>\n";
+        echo "<body>\n";
 
         \App\Components\HeaderComponent::render(
             \App\Datatypes\HeaderlocationEnum::CRUD_BOOK,
             "Buch CRUD",
+            $sort,
+            $dir,
+            $search,
         );
 
-        echo <<<HTML
-        <form method="post" action="
-        HTML;
-        echo BASE_URL;
-        echo <<<HTML
-        /crud/book" class="crud-form">
-            <h1>$headline</h1>
-            <input type="hidden" name="id" value="$id">
-        HTML;
+        echo '<form method="post" action="' . BASE_URL . '/crud/book" class="crud-form">';
+        echo '<h1>' . $headline . '</h1>';
+        echo '<input type="hidden" name="id" value="' . $id . '">';
+        echo '<input type="hidden" name="search" value="' . $searchValue . '">';
+        echo '<input type="hidden" name="sort" value="' . $sortValue . '">';
+        echo '<input type="hidden" name="dir" value="' . $dirValue . '">';
 
         if ($id !== "") {
-            echo <<<HTML
-            <label for="id_view">Id</label>
-            <br>
-            <input type="text" id="id_view" value="$id" readonly>
-            <br>
-            HTML;
+            echo '<label for="id_view">Id</label><br><input type="text" id="id_view" value="' . $id . '" readonly><br>';
         }
 
-        echo <<<HTML
-            <label for="title">Title</label>
-            <br>
-            <input type="text" name="title" value="$title">
-            <br>
-            <label for="autor">Autor</label>
-            <br>
-            <input type="text" name="autor" value="$autor">
-            <br>
-            <label for="beschreibung">Beschreibung</label>
-            <br>
-            <textarea name="beschreibung" cols="30" rows="10">$beschreibung</textarea>
-            <br>
-            <label for="katalog">Katalog</label>
-            <br>
-            <input type="text" name="katalog" value="$katalog">
-            <br>
-            <label for="nummer">Nummer</label>
-            <br>
-            <input type="text" name="nummer" value="$nummer">
-            <br>
-            <label for="kategorie">Kategorie</label>
-            <br>
-            <input type="text" name="kategorie" value="$kategorie">
-            <br>
-            <label for="verkauft">Verkauft</label>
-            <br>
-            <input type="text" name="verkauft" value="$verkauft">
-            <br>
-            <label for="kaufer">Kaufer</label>
-            <br>
-            <input type="text" name="kaufer" value="$kaufer">
-            <br>
-            <label for="foto">Foto</label>
-            <br>
-            <input type="text" name="foto" value="$foto">
-            <br>
-            <label for="verfasser">Verfasser</label>
-            <br>
-            <input type="text" name="verfasser" value="$verfasser">
-            <br>
-            <label for="zustand">Zustand</label>
-            <br>
-            <input type="text" name="zustand" value="$zustand">
-            <br>
-            <div class="crud-button-row">
-                <input type="submit" value="Save">
-        HTML;
+        echo '<label for="title">Titel</label><br><input type="text" name="title" value="' . $title . '"><br>';
+        echo '<label for="autor">Autor</label><br><input type="text" name="autor" value="' . $autor . '"><br>';
+        echo '<label for="beschreibung">Beschreibung</label><br><textarea name="beschreibung" cols="30" rows="10">' . $beschreibung . '</textarea><br>';
+        echo '<label for="katalog">Katalog</label><br><input type="text" name="katalog" value="' . $katalog . '"><br>';
+        echo '<label for="nummer">Nummer</label><br><input type="text" name="nummer" value="' . $nummer . '"><br>';
+        echo '<label for="kategorie">Kategorie</label><br><input type="text" name="kategorie" value="' . $kategorie . '"><br>';
+        echo '<label for="verkauft">Verkauft</label><br><input type="text" name="verkauft" value="' . $verkauft . '"><br>';
+        echo '<label for="kaufer">Kaufer</label><br><input type="text" name="kaufer" value="' . $kaufer . '"><br>';
+        echo '<label for="foto">Foto</label><br><input type="text" name="foto" value="' . $foto . '"><br>';
+        echo '<label for="verfasser">Verfasser</label><br><input type="text" name="verfasser" value="' . $verfasser . '"><br>';
+        echo '<label for="zustand">Zustand</label><br><input type="text" name="zustand" value="' . $zustand . '"><br>';
+        echo '<div class="crud-button-row"><input type="submit" value="Save">';
 
         if ($id !== "") {
-            echo <<<HTML
-                <button type="submit" name="delete" value="1" onclick="return confirm('Eintrag wirklich löschen?');">Delete</button>
-            HTML;
+            echo '<button type="submit" name="delete" value="1" onclick="return confirm(\'Eintrag wirklich löschen?\');">Delete</button>';
         }
 
-        echo <<<HTML
-            </div>
-        </form>
-        </body>
-        </html>
-        HTML;
+        echo '</div></form></body></html>';
     }
 }

@@ -12,99 +12,36 @@ class BookAdminView
         string $dir,
     ): void {
         $searchValue = htmlspecialchars($search, ENT_QUOTES);
-        $searchQueryValue = urlencode($search);
+        $sortValue = htmlspecialchars($sort, ENT_QUOTES);
+        $dirValue = htmlspecialchars($dir, ENT_QUOTES);
 
-        echo <<<EOT
-        <!DOCTYPE html>
-        <html lang="de">
-            <head>
-                <meta charset="UTF-8">
-                <link rel="stylesheet" href="
-        EOT;
-
-        echo BASE_URL . '/css/styles.css';
-
-        echo <<<EOT
-        ">
-                <title>Bücher Antiquariat</title>
-            </head>
-            <body>
-        EOT;
+        echo "<!DOCTYPE html>\n";
+        echo "<html lang=\"de\">\n";
+        echo "<head>\n";
+        echo "<meta charset=\"UTF-8\">\n";
+        echo '<link rel="stylesheet" href="' . BASE_URL . '/public/css/styles.css">' . "\n";
+        echo "<title>Bücher Antiquariat</title>\n";
+        echo "</head>\n";
+        echo "<body>\n";
 
         \App\Components\HeaderComponent::render(
             \App\Datatypes\HeaderlocationEnum::ADMIN_BOOKS,
             "Bücher Admin",
+            $sort,
+            $dir,
+            $search,
         );
 
-        echo <<<HTML
-        <div class="table-toolbar">
-            <h2>Bücher</h2>
-            <form method="get" action="
-        HTML;
-        echo BASE_URL;
-        echo <<<HTML
-        /admin/books" class="admin-search-form">
-                <input type="hidden" name="sort" value="$sort">
-                <input type="hidden" name="dir" value="$dir">
-                <input type="search" name="search" value="$searchValue" placeholder="Bücher suchen">
-                <button type="submit">Suchen</button>
-            </form>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/books?search={$searchQueryValue}&sort=id&dir=";
-        echo self::nextDirection($sort, $dir, "id");
-        echo <<<HTML
-        ">ID</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/books?search={$searchQueryValue}&sort=katalog&dir=";
-        echo self::nextDirection($sort, $dir, "katalog");
-        echo <<<HTML
-        ">Katalog</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/books?search={$searchQueryValue}&sort=nummer&dir=";
-        echo self::nextDirection($sort, $dir, "nummer");
-        echo <<<HTML
-        ">Nummer</a></th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/books?search={$searchQueryValue}&sort=Title&dir=";
-        echo self::nextDirection($sort, $dir, "Title");
-        echo <<<HTML
-        ">Title</a></th>
-                        <th>Kategorie</th>
-                        <th>Verkauft</th>
-                        <th>Käufer</th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/books?search={$searchQueryValue}&sort=autor&dir=";
-        echo self::nextDirection($sort, $dir, "autor");
-        echo <<<HTML
-        ">Autor</a></th>
-                        <th>Beschreibung</th>
-                        <th>Foto</th>
-                        <th>Verfasser</th>
-                        <th><a href="
-        HTML;
-        echo BASE_URL . "/admin/books?search={$searchQueryValue}&sort=zustand&dir=";
-        echo self::nextDirection($sort, $dir, "zustand");
-        echo <<<HTML
-        ">Zustand</a></th>
-                        <th>Aktion</th>
-                    </tr>
-                </thead>
-                <tbody>
-        HTML;
+        echo '<div class="table-container">';
+        echo '<table>';
+        echo '<thead><tr>';
+        echo '<th>ID</th><th>Katalog</th><th>Nummer</th><th>Titel</th><th>Kategorie</th><th>Verkauft</th><th>Käufer</th><th>Autor</th><th>Beschreibung</th><th>Foto</th><th>Verfasser</th><th>Zustand</th>';
+        echo '</tr></thead><tbody>';
 
         foreach ($contentArray as $book) {
             $id = (int) ($book["id"] ?? 0);
             $title = htmlspecialchars((string) ($book["Title"] ?? ""), ENT_QUOTES);
+            $titleLabel = $title !== "" ? $title : "Ohne Titel";
             $autor = htmlspecialchars((string) ($book["autor"] ?? ""), ENT_QUOTES);
             $beschreibung = htmlspecialchars((string) ($book["Beschreibung"] ?? ""), ENT_QUOTES);
             $foto = htmlspecialchars((string) ($book["foto"] ?? ""), ENT_QUOTES);
@@ -115,49 +52,25 @@ class BookAdminView
             $nummer = htmlspecialchars((string) ($book["nummer"] ?? ""), ENT_QUOTES);
             $kaufer = htmlspecialchars((string) ($book["kaufer"] ?? ""), ENT_QUOTES);
             $verfasser = htmlspecialchars((string) ($book["verfasser"] ?? ""), ENT_QUOTES);
+            $link = BASE_URL . '/crud/book?id=' . $id . '&search=' . urlencode($search) . '&sort=' . urlencode($sort) . '&dir=' . urlencode($dir);
 
-            echo <<<HTML
-                <tr>
-                    <td>$id</td>
-                    <td>$katalog</td>
-                    <td>$nummer</td>
-                    <td>$title</td>
-                    <td>$kategorie</td>
-                    <td>$verkauft</td>
-                    <td>$kaufer</td>
-                    <td>$autor</td>
-                    <td class="table-description-cell">$beschreibung</td>
-                    <td>$foto</td>
-                    <td>$verfasser</td>
-                    <td>$zustand</td>
-                    <td><a href="
-            HTML;
-            echo BASE_URL . "/crud/book?id=$id";
-            echo <<<HTML
-            ">Bearbeiten</a></td>
-                </tr>
-            HTML;
+            echo '<tr>';
+            echo '<td>' . $id . '</td>';
+            echo '<td>' . $katalog . '</td>';
+            echo '<td>' . $nummer . '</td>';
+            echo '<td><a class="table-link" href="' . $link . '">' . $titleLabel . '</a></td>';
+            echo '<td>' . $kategorie . '</td>';
+            echo '<td>' . $verkauft . '</td>';
+            echo '<td>' . $kaufer . '</td>';
+            echo '<td>' . $autor . '</td>';
+            echo '<td class="table-description-cell">' . $beschreibung . '</td>';
+            echo '<td>' . $foto . '</td>';
+            echo '<td>' . $verfasser . '</td>';
+            echo '<td>' . $zustand . '</td>';
+            echo '</tr>';
         }
 
-        echo <<<HTML
-                </tbody>
-            </table>
-        </div>
-        </body>
-        </html>
-        HTML;
-    }
-
-    private static function nextDirection(
-        string $currentSort,
-        string $currentDir,
-        string $column,
-    ): string {
-        if ($currentSort === $column && strtolower($currentDir) === "asc") {
-            return "desc";
-        }
-
-        return "asc";
+        echo '</tbody></table></div></body></html>';
     }
 
     private static function verkauftLabel(int $value): string

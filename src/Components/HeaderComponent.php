@@ -8,6 +8,7 @@ class HeaderComponent
         string             $title = "",
         string             $sort = "title",
         string             $dir = "asc",
+        string             $search = "",
     ): void
     {
         $html = <<<HTML
@@ -28,9 +29,59 @@ class HeaderComponent
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::ADMIN);
                 break;
             case \App\Datatypes\HeaderlocationEnum::ADMIN_BOOKS:
+                $html .= SortComponent::element(
+                    BASE_URL . "/admin/books",
+                    [
+                        "id" => "ID",
+                        "katalog" => "Katalog",
+                        "nummer" => "Nummer",
+                        "title" => "Titel",
+                        "autor" => "Autor",
+                        "zustand" => "Zustand",
+                    ],
+                    $sort,
+                    $dir,
+                    [
+                        "search" => $search,
+                    ],
+                );
+                $html .= SearchComponent::element(
+                    BASE_URL . "/admin/books",
+                    $search,
+                    [
+                        "sort" => $sort,
+                        "dir" => $dir,
+                    ],
+                );
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::ADMIN_BOOKS);
                 break;
             case \App\Datatypes\HeaderlocationEnum::ADMIN_CUSTOMERS:
+                $html .= SortComponent::element(
+                    BASE_URL . "/admin/customers",
+                    [
+                        "kid" => "KID",
+                        "geburtstag" => "Geburtstag",
+                        "vorname" => "Vorname",
+                        "name" => "Name",
+                        "geschlecht" => "Geschlecht",
+                        "kunde_seit" => "Kunde seit",
+                        "email" => "E-Mail",
+                        "kontaktpermail" => "Kontakt per Mail",
+                    ],
+                    $sort,
+                    $dir,
+                    [
+                        "search" => $search,
+                    ],
+                );
+                $html .= SearchComponent::element(
+                    BASE_URL . "/admin/customers",
+                    $search,
+                    [
+                        "sort" => $sort,
+                        "dir" => $dir,
+                    ],
+                );
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::ADMIN_CUSTOMERS);
                 break;
             case \App\Datatypes\HeaderlocationEnum::ADMIN_INFO:
@@ -49,8 +100,17 @@ class HeaderComponent
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::DETAIL);
                 break;
             case \App\Datatypes\HeaderlocationEnum::HOME:
-                $html .= SortComponent::element($sort, $dir);
-                $html .= SearchComponent::element();
+                $html .= SortComponent::element(
+                    BASE_URL . "/home",
+                    [
+                        "title" => "Titel",
+                        "autor" => "Autor",
+                        "zustand" => "Zustand",
+                    ],
+                    $sort,
+                    $dir,
+                );
+                $html .= SearchComponent::element(BASE_URL . "/search");
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::HOME);
                 break;
             case \App\Datatypes\HeaderlocationEnum::LOGIN:
@@ -62,8 +122,27 @@ class HeaderComponent
                 );
                 break;
             case \App\Datatypes\HeaderlocationEnum::SEARCH:
-                $html .= SortComponent::element($sort, $dir);
-                $html .= SearchComponent::element();
+                $html .= SortComponent::element(
+                    BASE_URL . "/search",
+                    [
+                        "title" => "Titel",
+                        "autor" => "Autor",
+                        "zustand" => "Zustand",
+                    ],
+                    $sort,
+                    $dir,
+                    [
+                        "search" => $search,
+                    ],
+                );
+                $html .= SearchComponent::element(
+                    BASE_URL . "/search",
+                    $search,
+                    [
+                        "sort" => $sort,
+                        "dir" => $dir,
+                    ],
+                );
                 $html .= LinklistComponent::element(\App\Datatypes\HeaderlocationEnum::SEARCH);
                 break;
             default:

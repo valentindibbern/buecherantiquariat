@@ -99,22 +99,19 @@ th:first-child {
     overflow-x: auto;
 }
 
-.table-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.admin-search-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 .table-description-cell {
     min-width: 320px;
+}
+
+.table-link {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.table-link:hover,
+.table-link:focus {
+    text-decoration: underline;
 }
 
 .crud-form {

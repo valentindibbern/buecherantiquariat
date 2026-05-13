@@ -21,22 +21,14 @@ class DetailView
         $nummer = $book["nummer"] ?? "Nummer nicht verfügbar";
         $kategorie = $book["kategorie"] ?? "Kategorie nicht verfügbar";
 
-        echo <<<EOT
-            <!DOCTYPE html>
-            <html lang="de">
-                <head>
-                    <meta charset="UTF-8">
-                    <link rel="stylesheet" href="
-            EOT;
-
-        echo BASE_URL . '/css/styles.css';
-
-        echo <<<EOT
-            ">
-                    <title>Bücher Antiquariat</title>
-                </head>
-                <body>
-        EOT;
+        echo "<!DOCTYPE html>\n";
+        echo "<html lang=\"de\">\n";
+        echo "<head>\n";
+        echo "<meta charset=\"UTF-8\">\n";
+        echo '<link rel="stylesheet" href="' . BASE_URL . '/public/css/styles.css">' . "\n";
+        echo "<title>Bücher Antiquariat</title>\n";
+        echo "</head>\n";
+        echo "<body>\n";
 
         \App\Components\HeaderComponent::render(
             \App\Datatypes\HeaderlocationEnum::DETAIL,
@@ -45,26 +37,20 @@ class DetailView
             $dir,
         );
 
-        echo <<<EOT
-            <div class="detail-container">
-                <img src="$image" class="detail-image" alt="Image of Book">
-                <p class="detail-description">$description</p>
-                <ul class="detail-list">
-                    <li class="detail-autor">Autor: $author</li>
-                    <li class="detail-zustand">Zustand: $zustand</li>
-                    <li class="detail-verkauft">Verkauft: $verkauft</li>
-                    <li class="detail-katalog">Katalog: $katalog</li>
-                    <li class="detail-nummer">Nummer: $nummer</li>
-                    <li class="detail-kategorie">Kategorie: $kategorie</li>
-                </ul>
-            </div>
-        EOT;
+        echo '<div class="detail-container">';
+        echo '<img src="' . $image . '" class="detail-image" alt="Image of Book">';
+        echo '<p class="detail-description">' . $description . '</p>';
+        echo '<ul class="detail-list">';
+        echo '<li class="detail-autor">Autor: ' . $author . '</li>';
+        echo '<li class="detail-zustand">Zustand: ' . $zustand . '</li>';
+        echo '<li class="detail-verkauft">Verkauft: ' . $verkauft . '</li>';
+        echo '<li class="detail-katalog">Katalog: ' . $katalog . '</li>';
+        echo '<li class="detail-nummer">Nummer: ' . $nummer . '</li>';
+        echo '<li class="detail-kategorie">Kategorie: ' . $kategorie . '</li>';
+        echo '</ul></div>';
 
         \App\Components\FooterComponent::render();
 
-        echo <<<EOT
-                </body>
-            </html>
-        EOT;
+        echo "</body></html>";
     }
 }
